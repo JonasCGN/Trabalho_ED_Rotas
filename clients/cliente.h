@@ -13,7 +13,10 @@ typedef struct listaCLiente{
     struct listaCliente *prox;
 }ListaCLiente;
 
-ListaCLiente criaListaCliente();
-Cliente cadastro();
+ListaCLiente *criaListaCliente();
+Cliente *cadastro();
 void cadastroCliente(ListaCLiente **cliente);
-void exibirClientes(ListaCLiente *cliente);
+void exibirClientes(ListaCLiente **cliente);
+void Procurarcliente(ListaCLiente **cliente);
+void editarcliente(ListaCLiente **cliente);
+void excluircliente(ListaCLiente **cliente);
