@@ -1,4 +1,6 @@
 #pragma once
+#ifndef CLIENTE_H 
+#define CLIENTE_H
 
 typedef struct{
     char nome[50];
@@ -8,15 +10,17 @@ typedef struct{
     char endereco[100];
 }Cliente;
 
-typedef struct listaCLiente{
+typedef struct listaCliente {  
     Cliente cliente;
     struct listaCliente *prox;
-}ListaCLiente;
+}ListaCliente;  
 
-ListaCLiente *criaListaCliente();
+ListaCliente *criaListaCliente();
 Cliente *cadastro();
-void cadastroCliente(ListaCLiente **cliente);
-void exibirClientes(ListaCLiente **cliente);
-void Procurarcliente(ListaCLiente **cliente);
-void editarcliente(ListaCLiente **cliente);
-void excluircliente(ListaCLiente **cliente);
+void cadastroCliente(ListaCliente **lista);
+void exibirClientes( ListaCliente **cliente);
+void Procurarcliente(ListaCliente **cliente);
+void editarcliente(ListaCliente **cliente);
+void excluircliente(ListaCliente **cliente);
+
+#endif
