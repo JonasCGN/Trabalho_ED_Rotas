@@ -13,6 +13,11 @@ typedef struct listaCLiente{
     struct listaCliente *prox;
 }ListaCLiente;
 
+typedef struct filalistacLiente{
+    ListaCLiente *ini;
+    ListaCLiente *fim;
+}FilaListaCLiente;
+
 ListaCLiente *criaListaCliente();
 Cliente *cadastro();
 void cadastroCliente(ListaCLiente **cliente);

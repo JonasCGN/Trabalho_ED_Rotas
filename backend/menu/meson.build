@@ -1,0 +1,1 @@
+menu_dep = static_library('bibs', 'menu.c', install:true)
