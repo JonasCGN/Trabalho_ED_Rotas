@@ -1,0 +1,1 @@
+cliente_dep = static_library('bibs', 'cliente.c', install:true)

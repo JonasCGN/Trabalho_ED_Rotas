@@ -1,0 +1,1 @@
+cria_libera_dep = static_library('bibs', 'cria_libera.c',install:true)
