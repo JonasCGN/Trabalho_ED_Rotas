@@ -20,15 +20,19 @@ Cliente *cadastro(){
     
     printf("CPF: ");
     fgets(novocliente->cpf, 15, stdin);
+    novocliente->cpf[strcspn(novocliente->cpf, "\n")] = '\0';// remove o /n 
 
     printf("Telefone: ");
     fgets(novocliente->telefone, 15, stdin);
+    novocliente->telefone[strcspn(novocliente->telefone, "\n")] = '\0';// remove o /n 
 
     printf("Email: ");
     fgets(novocliente->email, 50, stdin);
+    novocliente->email[strcspn(novocliente->email, "\n")] = '\0';// remove o /n 
 
     printf("Endereço: ");
     fgets(novocliente->endereco, 100, stdin);
+    novocliente->endereco[strcspn(novocliente->endereco, "\n")] = '\0';// remove o /n 
     
     return novocliente;
 
@@ -37,9 +41,9 @@ Cliente *cadastro(){
 void cadastroCliente(ListaCliente **lista){
     Cliente *novo = cadastro();
     ListaCliente *novoNO = (ListaCliente *) malloc(sizeof(ListaCliente));
-    if (novoNO){
-         printf("ERRO NA ALOCAÇÃO DE MEMÓRIA!!!");
-         exit(1);
+    if(!novoNO){
+        printf("ERRO NA ALOCAÇÃO DE MEMÓRIA!!!");
+        exit(1);
     }
     
     novoNO->cliente = *novo;// copia as informações do cliente para o novo nó
@@ -55,19 +59,18 @@ void cadastroCliente(ListaCliente **lista){
                 atual = atual->prox;
             }
             atual->prox = novoNO;
-    }
-    
+    } 
 
 }
-// void exibirClientes(ListaCLiente **cliente){
+void exibirClientes(ListaCliente**cliente){
 
-// }
-// void Procurarcliente(ListaCLiente **cliente){
+}
+void Procurarcliente(ListaCliente **cliente){
 
-// }
-// void editarcliente(ListaCLiente **cliente){
+}
+void editarcliente(ListaCliente **cliente){
 
-// }
-// void excluircliente(ListaCLiente **cliente){
+}
+void excluircliente(ListaCliente **cliente){
 
-// }
+}

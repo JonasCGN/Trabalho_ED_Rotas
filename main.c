@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h> 
 
-#include "routes/routes.c"
-#include "clients/cliente.c"
+#include "routes/routes.h"
+#include "clients/cliente.h"
 
 int main(){
     ListaCliente *listaClientes = criaListaCliente();
@@ -23,5 +23,6 @@ int main(){
 
         atual = atual->prox;
     }
+    
     return 0;
 }

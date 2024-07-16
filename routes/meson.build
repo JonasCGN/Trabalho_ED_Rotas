@@ -1,10 +1,2 @@
-routes_sources = [
-  'routes.c'
-]
-
-routes_dep = static_library('routes', routes_sources, 
-    install: true,
-    install_dir: 'lib'
-)
-
-install_headers('routes.h', subdir: 'routes')
+# Adiciona a biblioteca 'functions' que será usada por outros componentes
+routes_dep = static_library('bibs', 'routes.c', install: true)
