@@ -15,7 +15,12 @@ typedef struct listaCliente {
     struct listaCliente *prox;
 }ListaCliente;  
 
-ListaCliente *criaListaCliente();
+typedef struct filalistacLiente{
+    ListaCLiente *ini;
+    ListaCLiente *fim;
+}FilaListaCLiente;
+
+ListaCLiente *criaListaCliente();
 Cliente *cadastro();
 void cadastroCliente(ListaCliente **lista);
 void exibirClientes( ListaCliente **cliente);

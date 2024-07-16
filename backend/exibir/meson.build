@@ -1,0 +1,1 @@
+exibir_dep = static_library('bibs', 'exibir.c', install:true)
