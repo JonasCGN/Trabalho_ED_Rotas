@@ -8,7 +8,7 @@
 #include "backend/menu/menu.h"
 #include "backend/cria_libera/cria_libera.h"
 #include "backend/exibir/exibir.h"
-// Exemplo de uso da função exibirClientes no main
+
 int main() {
     FilaListaCLiente listaClientes;
     listaClientes.ini = criaListaCliente();
@@ -52,7 +52,7 @@ int main() {
             printf(" Digite o Id do cliente a ser excluido: ");
             scanf("%d", &id);
             getchar();
-            excluircliente(listaClientes.ini, id);
+            excluircliente(&listaClientes.ini, id);
             break;
         case 6:
             printf("----- FIM ------\n");
