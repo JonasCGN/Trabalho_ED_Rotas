@@ -5,7 +5,11 @@
 #include "cria_libera.h"
 
 ListaEntrega* criaListaEntrega(){
-	return NULL;
+	Pedido *pedido = (Pedido*)malloc(sizeof(Pedido));
+	ListaEntrega *entrega = (ListaEntrega*)malloc(sizeof(ListaEntrega));
+	entrega->pedido = pedido;
+	entrega->prox = NULL;
+	return entrega;
 }
 
 ListaSegundaEntrega* criaListaSegundaEntrega(){
