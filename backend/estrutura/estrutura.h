@@ -5,6 +5,7 @@ typedef struct pedido{
     char item[20];
     int quantidade;
     float valor;
+    int status;
     /*
         0 - Pendente
         1 - Entregue
@@ -12,7 +13,6 @@ typedef struct pedido{
         3 - Processo de Devolução
         4 - Devolução Concluida
     */
-    int status;
 }Pedido;
 
 typedef struct listentrega{
@@ -49,3 +49,4 @@ typedef struct rota{
     int id_rota;
     int score;
 }Rota;
+

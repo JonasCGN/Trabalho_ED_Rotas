@@ -5,7 +5,7 @@
 #include "exibir.h"
 
 void exibirPedido(Pedido *pedido){
-	char* status[25] = {
+	char* status[5] = {
 		"Pendente",
 		"Entregue",
 		"Segunda Tentativa",
