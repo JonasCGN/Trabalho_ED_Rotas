@@ -4,15 +4,21 @@
 #include "../estrutura/estrutura.h"
 #include "cria_libera.h"
 
+ListaCliente *criaListaCliente(){
+    return NULL;
+}
+
 ListaEntrega* criaListaEntrega(){
 	Pedido *pedido = (Pedido*)malloc(sizeof(Pedido));
+	
 	ListaEntrega *entrega = (ListaEntrega*)malloc(sizeof(ListaEntrega));
 	entrega->pedido = pedido;
 	entrega->prox = NULL;
+
 	return entrega;
 }
 
-ListaSegundaEntrega* criaListaSegundaEntrega(){
+PilhaSegundaEntrega* criaListaSegundaEntrega(){
 	return NULL;
 }
 
@@ -45,7 +51,7 @@ void liberaListaEntrega(ListaEntrega* l){
 	free(l);
 }
 
-void liberaListaSegundaEntrega(ListaSegundaEntrega* l){
+void liberaListaSegundaEntrega(PilhaSegundaEntrega* l){
 	if(l == NULL)
 		return;
 
@@ -81,4 +87,13 @@ void liberaListaDevolucao(ListaDevolucao* l){
 
 	liberaListaDevolucao(l->prox);
 	free(l);
+}
+
+void liberarListaCliente(ListaCliente *cliente){
+	if(cliente == NULL)
+		return;
+
+	liberarListaCliente(cliente->prox);
+	free(cliente);
+    
 }

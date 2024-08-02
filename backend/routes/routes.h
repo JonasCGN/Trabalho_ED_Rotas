@@ -1,17 +1,18 @@
 #pragma once
 
-void cadastroPedido(Pedido* pedido,ListaEntrega **entregas);
-void exibirEntregas(ListaEntrega *entregas);
+#include "../estrutura/estrutura.h"
+
+void pedidoFila(Pedido *pedido, ListaEntrega **entregas);
 
 void removeFila(ListaEntrega **entregas);
-void segundaRota(ListaEntrega **entregas,ListaSegundaEntrega **entregaNE);
+void segundaRota(ListaEntrega **entregas,PilhaSegundaEntrega **entregaNE);
 
-void removeSegundaEntrega(ListaSegundaEntrega **entregaNE);
-void adicionaSegundaEntrega(Pedido *pedido,ListaSegundaEntrega **entregaNE);
+void removeSegundaEntrega(PilhaSegundaEntrega **entregaNE);
+void adicionaSegundaEntrega(Pedido *pedido,PilhaSegundaEntrega **entregaNE);
 
-void entregaNEPilha(ListaSegundaEntrega **entregasNE);
+void entregaNEPilha(PilhaSegundaEntrega **entregasNE);
 void adicionaDevolucao(Pedido *pedido,FilaListaDevolucao **devolucao);
-void segundaEntregaDevolucao(ListaSegundaEntrega **entregasNE,FilaListaDevolucao **devolucao);
+void segundaEntregaDevolucao(PilhaSegundaEntrega **entregasNE,FilaListaDevolucao **devolucao);
 void removeDevolucao(FilaListaDevolucao** f);
 
 /*

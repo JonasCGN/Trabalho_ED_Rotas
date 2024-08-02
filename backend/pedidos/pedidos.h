@@ -1,11 +1,5 @@
 #pragma once
 
+#include "../estrutura/estrutura.h"
 
-Pedido cadastrarPedido(Pedido *pedido);
-
-void PedidoFila(Pedido *pedido, ListaEntrega *entregas);
-
-
-
-void exibirEntrega(ListaEntrega *entregas);
-
+Pedido* cadastrarPedido();

@@ -20,10 +20,10 @@ typedef struct listentrega{
     struct listentrega *prox;
 }ListaEntrega;
 
-typedef struct listasegundaentrega{
+typedef struct pilhaSegundaEntrega{
     Pedido* pedido;
-    struct listasegundaentrega *prox;
-}ListaSegundaEntrega;
+    struct pilhaSegundaEntrega *prox;
+}PilhaSegundaEntrega;
 
 typedef struct listadevolucao{
     Pedido *pedido;
@@ -50,3 +50,16 @@ typedef struct rota{
     int score;
 }Rota;
 
+typedef struct{
+    int id_cliente;
+    char nome[50];
+    char cpf[15];
+    char telefone[15];
+    char email[50];
+    char endereco[100];
+}Cliente;
+
+typedef struct listaCliente {  
+    Cliente *cliente;
+    struct listaCliente *prox;
+}ListaCliente;  

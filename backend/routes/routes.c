@@ -1,16 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../estrutura/estrutura.h"
+#include "../pedidos/pedidos.h"
 #include "routes.h"
 
 void removeFila(ListaEntrega **entregas){
+	
+}
+
+void pedidoFila(Pedido *pedido, ListaEntrega **entregas){
+    ListaEntrega *novo = (ListaEntrega*)malloc(sizeof(ListaEntrega));
+    
+	novo->pedido = pedido;
+    novo->prox = NULL;
+    
+	if(entregas == NULL){
+        *entregas = novo;
+    }else{
+        ListaEntrega *aux = *entregas;
+        while(aux->prox != NULL){
+            aux = aux->prox;
+        }
+        aux->prox = novo;
+    }
 
 }
 
-
-void removeSegundaEntrega(ListaSegundaEntrega **entregaNE){
-	ListaSegundaEntrega *aux = *entregaNE;
+void removeSegundaEntrega(PilhaSegundaEntrega **entregaNE){
+	PilhaSegundaEntrega *aux = *entregaNE;
 
 	if(*entregaNE != NULL){
 		*entregaNE = aux->prox;
@@ -20,9 +37,9 @@ void removeSegundaEntrega(ListaSegundaEntrega **entregaNE){
 
 }
 
-void adicionaSegundaEntrega(Pedido *pedido,ListaSegundaEntrega **entregaNE){
-	ListaSegundaEntrega *aux;
-	aux = (ListaSegundaEntrega*)malloc(sizeof(ListaSegundaEntrega));
+void adicionaSegundaEntrega(Pedido *pedido,PilhaSegundaEntrega **entregaNE){
+	PilhaSegundaEntrega *aux;
+	aux = (PilhaSegundaEntrega*)malloc(sizeof(PilhaSegundaEntrega));
 	if(!aux){
 		printf("Nao foi possivel alocar para entrega\n");
 		exit(1);
@@ -84,7 +101,7 @@ void removeDevolucao(FilaListaDevolucao** devolucao){
 	}
 }
 
-void segundaRota(ListaEntrega **entrega,ListaSegundaEntrega **entregaNE){
+void segundaRota(ListaEntrega **entrega,PilhaSegundaEntrega **entregaNE){
 	if(*entrega != NULL){
 		(*entrega)->pedido->status = 2;
 
@@ -96,7 +113,7 @@ void segundaRota(ListaEntrega **entrega,ListaSegundaEntrega **entregaNE){
 	}
 }
 
-void entregaNEPilha(ListaSegundaEntrega **entregaNE){
+void entregaNEPilha(PilhaSegundaEntrega **entregaNE){
 	if(*entregaNE != NULL){
 		(*entregaNE)->pedido->status = 2;
 		removeSegundaEntrega(entregaNE);
@@ -105,7 +122,7 @@ void entregaNEPilha(ListaSegundaEntrega **entregaNE){
 	}
 }
 
-void segundaEntregaDevolucao(ListaSegundaEntrega **entregaNE,FilaListaDevolucao **devolucao){
+void segundaEntregaDevolucao(PilhaSegundaEntrega **entregaNE,FilaListaDevolucao **devolucao){
 	if(*entregaNE != NULL){
 		(*entregaNE)->pedido->status = 3;
 		adicionaDevolucao((*entregaNE)->pedido,devolucao);

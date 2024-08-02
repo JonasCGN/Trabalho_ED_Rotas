@@ -21,6 +21,22 @@ void exibirPedido(Pedido *pedido){
 	printf("--------------------------------------\n");
 }
 
+void exibirClientes(ListaCliente *cliente){
+    if (cliente == NULL) {
+        return;
+    }
+
+    printf("ID %d\n", cliente->cliente->id_cliente);
+    printf("Nome: %s\n", cliente->cliente->nome);
+    printf("CPF: %s\n", cliente->cliente->cpf);
+    printf("Telefone: %s\n", cliente->cliente->telefone);
+    printf("Email: %s\n", cliente->cliente->email);
+    printf("Endereco: %s\n", cliente->cliente->endereco);
+    printf("\n");
+
+    exibirClientes(cliente->prox);
+}
+
 void mostrarHistorico(ListaHistorico *historico){
 	if(historico == NULL)
 		return;
@@ -28,3 +44,10 @@ void mostrarHistorico(ListaHistorico *historico){
 	exibirPedido(historico->pedido);
 	mostrarHistorico(historico->prox);
 }
+
+void exibirEntrega(ListaEntrega *entregas){
+    if(entregas == NULL)
+        return;
+    exibirPedido(entregas->pedido);
+    exibirEntrega(entregas->prox);
+} 
