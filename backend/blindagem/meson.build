@@ -1,0 +1,1 @@
+blindagem_dep = static_library('bibs', 'blindagem.c', install:true)

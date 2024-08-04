@@ -3,23 +3,29 @@
 #include "../estrutura/estrutura.h"
 
 //Cria
+ListaHistorico *criaListaHistorico();
+FilaListaRota *criaRota();
 ListaCliente *criaListaCliente();
-ListaEntrega* criaListaEntrega();
+ListaPedido *criaListaPedido();
+FilaListaEntrega* criaListaEntrega();
 PilhaSegundaEntrega* criaListaSegundaEntrega();
-FilaListaHistorico* criaListaHistorico();
 FilaListaDevolucao* criaListaDevolucao();
 
-int historicoVazio(FilaListaHistorico *fila);
+int entregaVazio(FilaListaEntrega *fila);
 int devolucaoVazio(FilaListaDevolucao *fila);
+int rotaVazia(FilaListaRota *listaRota);
 
 //Libera
-void liberaPedido(Pedido *pedido);
-void liberaListaEntrega(ListaEntrega* l);
-void liberaListaSegundaEntrega(PilhaSegundaEntrega* l);
+void liberaListaPedido(ListaPedido *l);
 
-void liberaFilaListaHistorico(FilaListaHistorico *fila);
-void liberaListaHistorico(ListaHistorico* l);
+void liberaFilaListaEntrega(FilaListaEntrega* fila);
+void liberaListaEntrega(ListaEntrega* l);
+
+void liberaListaSegundaEntrega(PilhaSegundaEntrega* l);
 
 void liberaFilaListaDevolucao(FilaListaDevolucao* fila);
 void liberaListaDevolucao(ListaDevolucao* l);
 void liberarListaCliente(ListaCliente *Cliente);
+
+void liberaFilaListaRota(FilaListaRota *listaRota);
+void liberarListaRota(ListaRota *listaRota);

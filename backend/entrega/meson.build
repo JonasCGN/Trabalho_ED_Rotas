@@ -1,0 +1,1 @@
+entrega_dep = static_library('bibs', 'entrega.c',install:true)

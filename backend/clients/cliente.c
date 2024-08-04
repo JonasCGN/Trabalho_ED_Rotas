@@ -3,6 +3,8 @@
 #include <string.h> 
 #include <ctype.h>
 
+#include "../exibir/exibir.h"
+#include "../blindagem/blindagem.h"
 #include "cliente.h"
 static int proxid = 1;
 
@@ -15,91 +17,41 @@ Cliente *cadastro(){
 
     novocliente->id_cliente = proxid++;
     
-    int valido;
-    do{
-        valido = 1;
-        printf("Nome: ");
-        fgets(novocliente->nome, 50, stdin);
-        novocliente->nome[strcspn(novocliente->nome, "\n")] = '\0';// remove o /n 
+    printf("Nome: ");
+    verifica_letra(novocliente->nome, 50);
 
-        for (int i = 0; novocliente->nome[i] != '\0'; i++){
-            if (!isalpha(novocliente->nome[i])  && novocliente->nome[i] != ' '){
-                printf("Nome invalido, digite novamente.\n");
-                valido = 0;
-                break;
-            }
-        }
-    }while(!valido);
+    printf("\n");
 
-    do{
-        valido = 1;
-        printf("CPF: ");
-        fgets(novocliente->cpf, 11, stdin);
-        novocliente->cpf[strcspn(novocliente->cpf, "\n")] = '\0'; 
-
-        if (strlen(novocliente->cpf) != 11){
-            printf("CPF invalido, digite novamente.\n");
-            valido = 0;
-        }else{
-            for (int i = 0; novocliente->cpf[i] != '\0'; i++){
-                if (!isdigit(novocliente->cpf[i])){
-                    printf("CPF invalido, digite novamente.\n");
-                    valido = 0;
-                    break;
-                }
-            }
-        }
-        
-    }while(!valido);
+    printf("CPF: ");
+    // verifica_n_int(novocliente->cpf, 11,11);
+    verifica_n_int(novocliente->cpf, 1,1);
     
-   do{
-        valido = 1;
-        printf("Telefone: ");
-        fgets(novocliente->telefone, 15, stdin);
-        novocliente->telefone[strcspn(novocliente->telefone, "\n")] = '\0';// remove o /n 
+    printf("\n");
 
-        if (strlen(novocliente->telefone) > 15){
-            printf("Telefone invalido, digite novamente.\n");
-            valido = 0;
-        }else{
-            for (int i = 0; novocliente->telefone[i] != '\0'; i++){
-                if (!isdigit(novocliente->telefone[i])){
-                    printf("Telefone invalido, digite novamente.\n");
-                    valido = 0;
-                    break;
-                }
-            }
-        }
-        
-   }while(!valido);
+    printf("Telefone: ");
+    // verifica_n_int(novocliente->telefone,11,11);
+    verifica_n_int(novocliente->telefone,1,1);
 
-   do{
-        valido = 1;
-        printf("Email: ");
+    printf("\n");
+
+    printf("Email: ");
+    do{
         fgets(novocliente->email, 50, stdin);
         novocliente->email[strcspn(novocliente->email, "\n")] = '\0';// remove o /n 
-
-        for (int i = 0; novocliente->email[i] != '\0'; i++){
-            if (isspace(novocliente->email[i])){
-                valido = 1;
-                break;
-            }else{
-                printf("Email invalido, digite novamente.\n");
-                valido = 0;
-                break;
-            }
+        if(!verifica_email(novocliente->email)){
+            printf("Email invalido, digite novamente.\n");
         }
-        
-   }while(!valido);
-
+    }while (!verifica_email(novocliente->email));
     
+    printf("\n");
+
     printf("Endereco: ");
     fgets(novocliente->endereco, 100, stdin);
     novocliente->endereco[strcspn(novocliente->endereco, "\n")] = '\0';// remove o /n 
     
-    return novocliente;
+    printf("\n");
 
-    
+    return novocliente;
 }
 
 void cadastroCliente(ListaCliente **listaCliente){
@@ -107,44 +59,43 @@ void cadastroCliente(ListaCliente **listaCliente){
 
     ListaCliente *novo;
 	novo = (ListaCliente*)malloc(sizeof(ListaCliente));
-    
     if(!novo){
         printf("Nao foi possivel alocar para entrega\n");
         exit(1);
     }
 
-    if((*listaCliente) == NULL){
-            
-        novo->cliente = cliente_novo;
-        novo->prox = *listaCliente;
+    novo->cliente = cliente_novo;
+    novo->prox = *listaCliente;
 
-        (*listaCliente) = novo;
-
-        return;
-    }
+    (*listaCliente) = novo;
 
 }
 
-void procurarcliente(ListaCliente *cliente, int id){
-    ListaCliente *atual = cliente;
-    int  encontrado = 0;
+Cliente* verificaCliente(ListaCliente *listacliente,int id){
+    if(listacliente == NULL){
+        printf("Cliente nao cadastrado\n");
+        return NULL;
+    }
 
-    while ( atual!= NULL){
-        if (atual->cliente->id_cliente == id){
-            printf("Cliente encontrado :\n");
-            printf("ID %d\n", atual->cliente->id_cliente);
-            printf("Nome: %s\n", atual->cliente->nome);
-            printf("CPF: %s\n", atual->cliente->cpf);
-            printf("Telefone: %s\n", atual->cliente->telefone);
-            printf("Email: %s\n", atual->cliente->email);
-            printf("Endereco: %s\n", atual->cliente->endereco);
-            return;
-        }
-        atual = atual->prox;
-        printf("Cliente  não encontrado :\n");
+    if(id == listacliente->cliente->id_cliente)
+        return listacliente->cliente;
+
+    return verificaCliente(listacliente->prox,id);
+}
+
+void procurarcliente(ListaCliente *listacliente, int id){
+    
+    printf("\nProcurando cliente com ID %d\n", id);
+    
+    Cliente *cliente = verificaCliente(listacliente, id);
+
+    if(cliente != NULL){
+        exibirInfoCliente(cliente);
+    }else{
+        printf("Cliente com ID %d nao encontrado\n", id);
     }
     
-
+    limparTela();
 }
 
 void editarcliente(ListaCliente *cliente, int id){

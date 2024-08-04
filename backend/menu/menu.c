@@ -3,26 +3,27 @@
 
 #include "./menu.h"
 #include "../estrutura/estrutura.h"
-#include "../routes/routes.h"
 #include "../clients/cliente.h"
 #include "../cria_libera/cria_libera.h"
+#include "../routes/routes.h"
+#include "../entrega/entrega.h"
 #include "../exibir/exibir.h"
 #include "../pedidos/pedidos.h"
+#include "../blindagem/blindagem.h"
 
 void telaInicial(){
     int opc;
 
+    FilaListaRota *listarota = criaRota();
+    ListaPedido *listapedido = criaListaPedido();
     ListaCliente *listaCliente = criaListaCliente();
-    ListaEntrega *primeiraEntrega = criaListaEntrega();
-    PilhaSegundaEntrega *segundaEntrega = criaListaSegundaEntrega();
-    FilaListaDevolucao *devolucao = criaListaDevolucao();
-    ListaHistorico *historico = criaListaHistorico();
     
     do{
 
         printf("1 - Menu Cliente\n");
         printf("2 - Menu Pedido\n");
-        printf("3 - Menu Entrega\n");
+        printf("3 - Menu Rota\n");
+        printf("4 - Menu Entrega\n");
         printf("0 - Sair\n");
         scanf("%d", &opc);
         
@@ -36,13 +37,21 @@ void telaInicial(){
             break;
 
             case 2:
-                menuPedido(&primeiraEntrega);
+                menuPedido(&listapedido, &listaCliente);
             break;
 
             case 3:
-                menuEntrega(&primeiraEntrega,&segundaEntrega,&devolucao);
+                menuRota(&listarota,listapedido);
             break;
 
+            case 4:
+                if(listarota != NULL)
+                    menuEntrega(&((listarota->fim->rota)));
+                else{
+                    printf("Nenhuma rota cadastrada\n");
+                    getchar();
+                }
+            break;
             case 0:
                 printf("Saindo...");
             break;
@@ -55,6 +64,10 @@ void telaInicial(){
         system("cls||clear");
 
     }while(opc != 0);
+
+    liberarListaCliente(listaCliente);
+    liberaListaPedido(listapedido);
+    liberaFilaListaRota(listarota);
 }
 
 int exibeOpcaoCliente(){
@@ -89,6 +102,22 @@ int exibeOpcaoPedido(){
     return op;
 }
 
+int exibeOpcaoRota(){
+    int op;
+    printf("\n----- MENU -----\n");
+    printf("1. Cadastrar Rota\n");
+    printf("2. Exibir Rota Atual \n");
+    printf("3. Exibir todas as Rotas \n");
+    printf("4. Procurar Rota por ID\n");
+    printf("5. Finalizar Rota\n");
+    printf("0. Voltar\n");
+    printf("Escolha uma opcao: ");
+    scanf("%d", &op);
+
+    getchar();
+    return op;
+}
+
 int exibeOpcaoEntrega(){
     int op;
     printf("\n----- MENU -----\n");
@@ -109,7 +138,7 @@ void menuCliente(ListaCliente **listacliente){
     int op,id;
 
     do{
-        op = exibeOpcaoEntrega();
+        op = exibeOpcaoCliente();
         
         system("cls||clear");
 
@@ -125,7 +154,7 @@ void menuCliente(ListaCliente **listacliente){
             case 3:
                 
                 printf("Digite o ID do cliente que deseja procurar:");
-                scanf("%d",&id);
+                id = numero(1, 1100000);
 
                 procurarcliente(*listacliente,id);
 
@@ -155,24 +184,100 @@ void menuCliente(ListaCliente **listacliente){
 
         getchar();
         system("cls||clear");
-    }while(op != 6);
+    }while(op != 0);
 
 }
 
-void menuPedido(ListaEntrega **entrega){
+void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
+    int opc,id;
+
+    do{
+        opc = exibeOpcaoRota();
+        
+        system("cls||clear");
+
+        switch (opc){
+            case 1:
+                cadastroRota(rota,listaPedido);
+            break;
+
+            case 2:
+                if((*rota) == NULL){
+                    printf("Nenhuma rota foi iniciada\n");
+                    break;
+                }
+                exibirInfoRota((*rota)->fim->rota);
+            break;
+
+            case 3:
+                if((*rota) == NULL){
+                    printf("Nenhuma rota foi iniciada\n");
+                    break;
+                }
+                exibirRotas((*rota)->ini);
+            break;
+        
+            case 4:
+                if((*rota) == NULL){
+                    printf("Nenhuma rota foi iniciada\n");
+                    break;
+                }
+
+                printf("Digite o ID da rota que deseja procurar:");
+                scanf("%d",&id);
+
+                procurarRota((*rota)->fim,id);
+            break;
+
+            case 5:
+                if((*rota) == NULL){
+                    printf("Nenhuma rota foi iniciada\n");
+                    break;
+                }
+
+                if(processoEntrega(
+                    (*rota)->fim->rota->entrega,
+                    (*rota)->fim->rota->segundaEntrega,
+                    (*rota)->fim->rota->devolucao
+                    )
+                ){
+                    printf("Nao eh possivel finalizar rota, com entregas pendentes\n");
+                    break;
+                }
+                finalizarRota(&((*rota)->fim->rota),(*rota)->fim->rota->historico);
+            break;
+            case 0:
+                printf("Voltando...");
+            break;
+
+            default:
+                printf("Opcao Invalida");
+            break;
+        }
+
+        limparTela();
+
+    }while(opc != 0);
+}
+
+void menuPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
     int op;
     Pedido *pedido = NULL;
 
     do{
-        int op = exibeOpcaoPedido();
+        op = exibeOpcaoPedido();
 
         switch (op){
             case 1:
-                pedido = cadastrarPedido();
-                pedidoFila(pedido,entrega);
+                pedido = cadastrarPedido(listaPedido, listaCliente);
+                if(pedido != NULL){
+                    printf("Pedido cadastrado com sucesso\n");
+                }else{
+                    printf("Cliente nao encontrado\n");
+                }
             break;
             case 2:
-
+                mostrarPedidos(*listaPedido);
             break;
             case 3:
 
@@ -186,9 +291,12 @@ void menuPedido(ListaEntrega **entrega){
             case 0:
                 printf("Saindo...\n");
             break;
-        default:
+
+            default:
             break;
         }
+
+        limparTela();
     }while(op != 0);
 
 }
@@ -205,8 +313,8 @@ int menuPergunta(){
     return op;
 }
 
-void menuEntrega(ListaEntrega **primeiraEntrega,PilhaSegundaEntrega **segundaEntrega,FilaListaDevolucao **devolucao){
-    int op,id,retorno;
+void menuEntrega(Rota **rota){
+    int op,retorno;
 
     do{
         op = exibeOpcaoEntrega();
@@ -217,28 +325,47 @@ void menuEntrega(ListaEntrega **primeiraEntrega,PilhaSegundaEntrega **segundaEnt
             case 1:
                 retorno = menuPergunta();
                 if(retorno == 1){
-                    removeFila(primeiraEntrega);
-                }else{
-                    segundaRota(primeiraEntrega,segundaEntrega);
-                }
+                    if((*rota)->entrega != NULL)
+                        adicionaHistorico((*rota)->entrega->ini->pedido,&((*rota)->historico));
 
+                    primeiraEntrega(&((*rota)->entrega));
+                }else{
+                    segundaRota(&((*rota)->entrega),&((*rota)->segundaEntrega));
+                }
             break;
 
             case 2:
+                if((*rota)->entrega != NULL){
+                    printf("Nao eh possivel fazer o processo de segunda entrega ate que\ntodos os pedidos anteriores tenham sido processados\n");
+                    break;
+                }
                 retorno = menuPergunta();
                 if(retorno == 1){
-                    entregaNEPilha(segundaEntrega);
+                    if((*rota)->segundaEntrega != NULL)
+                        adicionaHistorico((*rota)->segundaEntrega->pedido,&((*rota)->historico));
+
+                    entregaNEPilha(&((*rota)->segundaEntrega));
                 }else{
-                    segundaEntregaDevolucao(segundaEntrega,devolucao);
+                    segundaEntregaDevolucao(&((*rota)->segundaEntrega),&((*rota)->devolucao));
                 }
             break;
         
             case 3:
-                processoDevolucao(devolucao);
+
+                if((*rota)->devolucao != NULL)
+                    adicionaHistorico((*rota)->devolucao->ini->pedido,&((*rota)->historico));
+
+                processoDevolucao(&((*rota)->devolucao));
+
             break;
 
             case 4:
-                exibirEntrega(primeiraEntrega);
+                if((*rota)->entrega != NULL)
+                    exibirEntrega((*rota)->entrega->ini);
+            break;
+
+            case 5:
+                exibirHistorico((*rota)->historico);
             break;
 
             case 0:
@@ -246,10 +373,12 @@ void menuEntrega(ListaEntrega **primeiraEntrega,PilhaSegundaEntrega **segundaEnt
             break;
 
             default:
+                printf("Opcao Invalida");
             break;
         }
 
         getchar();
         system("cls||clear");
+
     }while(op != 0);
 }

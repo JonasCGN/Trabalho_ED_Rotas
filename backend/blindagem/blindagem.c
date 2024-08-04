@@ -6,15 +6,11 @@
 
 #include "blindagem.h"
 
-/*
-0-
-1-Verifica CPF
-2-Verifica RG
-3-Verifica Numero de telefone
-*/
-void verifica_n_int(char *v,int vC){
+void verifica_n_int(char *v,int min,int max){
     int i=0;
+
     char c;
+
     do{
         c = getch();
 
@@ -28,32 +24,31 @@ void verifica_n_int(char *v,int vC){
             i--;
         }
 
-        if(c == 13 && (i < 11 || i > 11) && vC == 1){
-            printf("\nCPF Invalido:");
-            i=0;
-            c=14;
-        }else if(c == 13 && (i < 11 || i > 11) && vC == 2){
-            printf("\nRG Invalido:");
-            i=0;
-            c=14;
-        }else if(c == 13 && (i < 11 || i > 11) && vC == 3){
-            printf("\nNumero Invalido:");
-            i=0;
+        if(c == 13 && (i < min || i > max)){
             c=14;
         }
-
     }while(c != 13);
 
     *(v+i) = '\0';
-
 }
 
-void verifica_n_float(char *v){
+int numero(int min,int max){
+    char *v = (char*)calloc(10,sizeof(char));
+
+    verifica_n_int(v,min,max);
+
+    int num = atoi(v);
+    free(v);
+
+    return num;
+}
+
+float verifica_n_float(int min){
     int i=0,cont = 0;
     char c;
-    for(int j=0;j<10;j++){
-        *(v+j) = '\0';
-    }
+    
+    char *v = (char*)calloc(10,sizeof(char));
+
     do{
         
         c = getch();
@@ -77,21 +72,25 @@ void verifica_n_float(char *v){
             *(v+i) = '\0';
             printf("\b \b");
             i--;
+
         }else if(c == 13 && *(v+i-1) == '.'){
             c = 14;
         }
-        if(i==0){
-            c=14;
+        if(i < min){
+            c = 14;
         }
 
     }while(c != 13);
+
+    *(v+i) = '\0';
+
+    float num = atof(v);
+    free(v);
+
+    return num;
 }
 
-/*
-0 -
-1 - Nome
-*/
-void verifica_letra(char *v,int opc,int tam){
+void verifica_letra(char *v,int tam){
     char c;
     int i=0;
 
@@ -119,6 +118,16 @@ void verifica_letra(char *v,int opc,int tam){
     *(v+i) = '\0';
 }
 
+int verifica_email(char *v){
+    int n=strlen(v);
+    for(int i=0;i<n;i++){
+        if(*(v+i) == ' '){
+            return 0;
+        }
+    }
+    return 1;
+}
+
 void limparTela(){
     printf("\n");
     printf("Pressione qualquer tecla para continuar");
@@ -137,6 +146,8 @@ char recebeUmNumero(char v){
         }
 
     }while(!(temp >= '0' && temp <= '9'));
+
+    
 
     return v;
 }
