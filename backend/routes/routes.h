@@ -1,29 +1,16 @@
 #pragma once
 
-void cadastroPedido(Pedido* pedido,ListaEntrega **entregas);
-void exibirEntregas(ListaEntrega *entregas);
+#include "../estrutura/estrutura.h"
 
-void removeFila(ListaEntrega **entregas);
-void segundaRota(ListaEntrega **entregas,ListaSegundaEntrega **entregaNE);
+void filaRota(Rota *rota,FilaListaRota **listaRota);
+void removefilaRota(FilaListaRota **listaRota);
+void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido);
 
-void removeSegundaEntrega(ListaSegundaEntrega **entregaNE);
-void adicionaSegundaEntrega(Pedido *pedido,ListaSegundaEntrega **entregaNE);
+void procurarRota(ListaRota *rota, int id);
+void finalizarRota(Rota **rota,ListaHistorico *lista);
 
-void entregaNEPilha(ListaSegundaEntrega **entregasNE);
-void adicionaDevolucao(Pedido *pedido,FilaListaDevolucao **devolucao);
-void segundaEntregaDevolucao(ListaSegundaEntrega **entregasNE,FilaListaDevolucao **devolucao);
-void removeDevolucao(FilaListaDevolucao** f);
+void adicionaHistorico(Pedido *pedido,ListaHistorico **listahistorico);
 
-/*
-Se for finalizada na primeira + 5
-Se for finalizada na segunda + 3
-Se for 
-*/
-void pontuacao(Rota *rota);
-
-void processoDevolucao(FilaListaDevolucao **devolucao);
-
-void addHistorico(Pedido* pedido,FilaListaHistorico **historico);
-
-int historicoVazio(FilaListaHistorico *fila);
-int devolucaoVazio(FilaListaDevolucao *fila);
+FilaListaEntrega * criaListaEntregraRota(ListaPedido *listaPedido);
+void entregaRota(FilaListaEntrega **listaEntrega,ListaPedido *listaPedido);
+void verificarPedidosCliente(FilaListaEntrega **listaEntrega, ListaPedido *listaPedido,int id);

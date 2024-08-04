@@ -1,39 +1,43 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+#include "../clients/cliente.h"
+#include "../blindagem/blindagem.h"
 #include "pedidos.h"
-#include "../backend/estrutura/estrutura.h"
 
-Pedido cadastrarPedido(Pedido *pedido){
-    printf("Digite o id do cliente: ");
-    scanf("%d", &pedido->id_cliente);
-    printf("Digite o item: ");
-    scanf("%s", pedido->item);
-    printf("Digite a quantidade: ");
-    scanf("%d", &pedido->quantidade);
-    printf("Digite o valor: ");
-    scanf("%f", &pedido->valor);
-    pedido->status = 0;
-    return *pedido;
-}
+void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido){
+    ListaPedido *novo = (ListaPedido*) malloc(sizeof(ListaPedido));
 
-void PedidoFila(Pedido *pedido, ListaEntrega *entregas){
-    ListaEntrega *novo = (ListaEntrega*)malloc(sizeof(ListaEntrega));
     novo->pedido = pedido;
-    novo->prox = NULL;
-    if(entregas == NULL){
-        entregas = novo;
-    }else{
-        ListaEntrega *aux = entregas;
-        while(aux->prox != NULL){
-            aux = aux->prox;
-        }
-        aux->prox = novo;
-    }
+    novo->prox = *listaPedido;
+
+    *listaPedido = novo;
 
 }
 
-void exibirEntrega(ListaEntrega *entregas){
-    if(entregas == NULL)
-        return;
-    exibirPedido(entregas->pedido);
-    exibirEntrega(entregas->prox);
+Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
+    Pedido *pedido = (Pedido*)malloc(sizeof(Pedido));
+
+    printf("Digite o id do cliente: ");
+    int id = numero(1, 1100000);
+
+    if(!verificaCliente(*listaCliente,id))
+        return NULL;
+    printf("\nCliente encontrado\n");
+    pedido->id_cliente = id;
+
+    printf("Digite o item: ");
+    verifica_letra(pedido->item, 20);
+
+    printf("\nDigite a quantidade: ");
+    pedido->quantidade = numero(1, 5);
+
+    printf("\nDigite o valor: ");
+    pedido->valor = verifica_n_float(1);
+    
+    pedido->status = 0;
+
+    adicionaPedido(listaPedido, pedido);
+
+    return pedido;
 }
