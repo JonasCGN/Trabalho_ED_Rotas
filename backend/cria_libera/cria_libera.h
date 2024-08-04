@@ -15,6 +15,8 @@ int entregaVazio(FilaListaEntrega *fila);
 int devolucaoVazio(FilaListaDevolucao *fila);
 int rotaVazia(FilaListaRota *listaRota);
 
+int listaPedidoVazia(ListaPedido *listaPedido);
+
 //Libera
 void liberaListaPedido(ListaPedido *l);
 

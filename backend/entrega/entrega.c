@@ -6,15 +6,11 @@
 #include "entrega.h"
 
 int processoEntrega(FilaListaEntrega *listaEntrega, PilhaSegundaEntrega *segundaEntrega, FilaListaDevolucao *devolucao){
-	if(listaEntrega == NULL){
-		return 0;
-	}else if(segundaEntrega == NULL){
-		return 0;
-	}else if(devolucao == NULL){
-		return 0;
-	}
 
-	return 1;
+	if(listaEntrega != NULL || segundaEntrega != NULL || devolucao != NULL)
+		return 1;
+
+	return 0;
 }
 
 void pedidoFilaEntrega(Pedido *pedido, FilaListaEntrega **entregas){

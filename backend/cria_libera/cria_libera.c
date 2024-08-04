@@ -53,6 +53,16 @@ int rotaVazia(FilaListaRota *listaRota){
 	return 0;
 }
 
+int listaPedidoVazia(ListaPedido *listaPedido){
+    if(listaPedido == NULL)
+        return 0;
+
+    if(listaPedido->pedido->status == 0)
+        return 1;
+
+    return listaPedidoVazia(listaPedido->prox);
+}
+
 void liberaListaPedido(ListaPedido *l){
 	if(l == NULL)
 		return;
