@@ -7,6 +7,9 @@
 
 void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido){
     ListaPedido *novo = (ListaPedido*) malloc(sizeof(ListaPedido));
+    if(novo != NULL){
+        return;
+    }
 
     novo->pedido = pedido;
     novo->prox = *listaPedido;

@@ -24,13 +24,13 @@ Cliente *cadastro(){
 
     printf("CPF: ");
     // verifica_n_int(novocliente->cpf, 11,11);
-    verifica_n_int(novocliente->cpf, 1,1);
+    verifica_n_int(novocliente->cpf, 11,11);
     
     printf("\n");
 
     printf("Telefone: ");
     // verifica_n_int(novocliente->telefone,11,11);
-    verifica_n_int(novocliente->telefone,1,1);
+    verifica_n_int(novocliente->telefone,11,11);
 
     printf("\n");
 

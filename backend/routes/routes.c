@@ -130,7 +130,6 @@ void adicionaHistorico(Pedido *pedido,ListaHistorico **listahistorico){
 FilaListaEntrega * criaListaEntregraRota(ListaPedido *listaPedido){
 	FilaListaEntrega *entregas = criaListaEntrega();
 
-
 	entregaRota(&entregas,listaPedido);
 
 	return entregas;

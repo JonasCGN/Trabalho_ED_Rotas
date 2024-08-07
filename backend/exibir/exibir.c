@@ -63,6 +63,7 @@ void exibirRotas(ListaRota *listaRota){
 void exibirEntrega(ListaEntrega *entregas){
     if(entregas == NULL)
         return;
+
     exibirPedido(entregas->pedido);
     exibirEntrega(entregas->prox);
 } 
@@ -70,6 +71,7 @@ void exibirEntrega(ListaEntrega *entregas){
 void mostrarPedidos(ListaPedido *lista){
 	if(lista == NULL)
 		return;
+		
 	exibirPedido(lista->pedido);
 	mostrarPedidos(lista->prox);
 }
