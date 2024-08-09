@@ -4,3 +4,7 @@
 
 void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido);
 Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente **listaCliente);
+
+void procurarPedido(ListaPedido *listaPedido, int id);
+
+
