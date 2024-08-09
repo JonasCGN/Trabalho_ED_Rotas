@@ -16,7 +16,7 @@ ListaCliente *criaListaCliente(){
     return NULL;
 }
 
-ListaPedido *criaListaPedido(){
+FilaListaPedido *criaListaPedido(){
 	return NULL;
 }
 
@@ -41,6 +41,13 @@ int entregaVazio(FilaListaEntrega *fila){
 	return 0;
 }
 
+int segundaEntregaVazia(PilhaSegundaEntrega *fila){
+	if(fila == NULL)
+		return 1;
+
+	return 0;
+}
+
 int devolucaoVazio(FilaListaDevolucao *fila){
 	if(fila == NULL)
 		return 1;
@@ -55,7 +62,7 @@ int rotaVazia(FilaListaRota *listaRota){
 	return 0;
 }
 
-int listaPedidoVazia(ListaPedido *listaPedido){
+int listaPedidoVazia(FilaListaPedido *listaPedido){
     if(listaPedido == NULL)
         return 1;
 
@@ -69,6 +76,14 @@ int listaClienteVazia(ListaCliente *listacliente){
 	return 0;
 }
 
+
+
+void liberaFilaListaPedido(FilaListaPedido* fila){
+	if(listaPedidoVazia(fila))
+		return;
+
+	liberaListaPedido(fila->ini);
+}
 
 void liberaListaPedido(ListaPedido *l){
 	if(l == NULL)

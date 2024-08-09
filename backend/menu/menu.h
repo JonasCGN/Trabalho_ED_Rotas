@@ -4,6 +4,6 @@
 
 void telaInicial();
 void menuCliente(ListaCliente **listacliente);
-void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente);
-void menuRota(FilaListaRota **rota,ListaPedido *listaPedido);
+void menuPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente);
+void menuRota(FilaListaRota **rota,FilaListaPedido *listaPedido);
 void menuEntrega(Rota **rota);

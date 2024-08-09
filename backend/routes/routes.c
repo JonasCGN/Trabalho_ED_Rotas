@@ -48,7 +48,7 @@ void removefilaRota(FilaListaRota **listaRota){
 	}
 }
 
-void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido){
+void cadastroRota(FilaListaRota **listaRota, FilaListaPedido *listaPedido){
 	
 	if(listaPedidoVazia(listaPedido)){
 		printf("Nao ha pedidos para criar rota\n");
@@ -59,7 +59,7 @@ void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido){
 		Rota *rota = (Rota*)malloc(sizeof(Rota));	
 		
 		rota->score = 0;
-		rota->entrega = criaListaEntregraRota(listaPedido);
+		rota->entrega = criaListaEntregraRota(listaPedido->ini);
 		
 		if(rota->entrega == NULL){
 			printf("Nao foi possivel criar a rota, verifique se a pedidos cadastrados\n");
