@@ -6,6 +6,32 @@
 
 #include "blindagem.h"
 
+void verifica_n_int(char *v, int min, int max) {
+    int i = 0;
+    char c;
+
+    do {
+        c = getch();
+
+        if (c >= '0' && c <= '9' && i < max) { 
+            printf("%c", c);
+
+            v[i] = c;
+            i++;
+        } else if (c == 8 && i >= 1) {
+            i--; 
+            v[i] = '\0';
+            printf("\b \b");
+        }
+
+        if (c == 13 && i < min) { 
+            c = 14;
+        }
+    } while (c != 13);
+
+    v[i] = '\0';
+}
+
 int numero(int min,int max){
     char v[10];
     int num;
