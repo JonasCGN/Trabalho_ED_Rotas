@@ -2,96 +2,87 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
-#include<conio.h>
+#include<limits.h>
 
 #include "blindagem.h"
 
-void verifica_n_int(char *v, int min, int max) {
-    int i = 0;
-    char c;
-
-    do {
-        c = getch();
-
-        if (c >= '0' && c <= '9' && i < max) { 
-            printf("%c", c);
-
-            v[i] = c;
-            i++;
-        } else if (c == 8 && i >= 1) {
-            i--; 
-            v[i] = '\0';
-            printf("\b \b");
-        }
-
-        if (c == 13 && i < min) { 
-            c = 14;
-        }
-    } while (c != 13);
-
-    v[i] = '\0';
-}
-
-int numero(int min,int max){
-    char v[10];
-    int num;
-
-    while (1){
-        gets(v);
-        if(atoi(v) != 0){
-            num = atoi(v);
-            break;
-        }else{
-            printf("\nDigite um numero inteiro:");
-        }
-    }
-    
-    return num;
-}
-
-float verifica_n_float(int max){
-    char v[10];
-    int num;
-
-    while (1){
-        gets(v);
-        if(atof(v) != 0){
-            num = atof(v);
-            break;
-        }else{
-            printf("\nDigite um numero real:");
-        }
-    }
-
-    return num;
-}
-
-void verifica_letra(char *v,int tam){
-    char c;
+int numeroInteiro(const char str[]) {
     int i=0;
 
-	for(int j=0;j < 50 ;j++){
-		*(v+j) = '\0';
-	}
+    while (str[i]) {
+        if (isdigit(str[i]) == 0) return 0;
+
+        i++;
+    }
+    return 1;
+}
+
+int numeroReal(const char str[]) {
+    int i=0,cont = 0;
+
+    while (str[i]) {
+        if (isdigit(str[i]) == 0 && str[i] != 46) return 0;
+        
+        if(str[i] == 46) cont++;
+        if(cont > 1) return 0;
+
+        i++;
+    }
+    return 1;
+}
+
+void verifica_n_int(char *v, int min, int max) {
+    char palavra[11];
 
     do{
-        c = getch();
-
-        if(((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c == ' ')) && i < tam){
-            printf("%c", c);
-            *(v+i) = c;
-            i++;
-        }else if(c == 8 && i >= 1){
-            *(v+i) = '\0';
-            printf("\b \b");
-            i--;
-        }else if(i == 0){
-            c = 14;
-        }else if(*(v + i - 1) == ' '){
-            c = 14;
+        scanf("%s",palavra);
+        if(!numeroInteiro(palavra)){
+            printf("Digite um numero inteiro:");
         }
-    }while(c != 13);
-    *(v+i) = '\0';
+    }while(!numeroInteiro(palavra));
+
+    strcpy(v,palavra);
+
+}
+
+int numero(int min, int max) {
+    char v[10];
+    int num;
+    char *ver;
+
+    do{
+        scanf("%s",v);
+        if(!numeroInteiro(v)){
+            printf("Digite um numero inteiro:");
+        }
+    }while(!numeroInteiro(v));
+
+    num = strtol(v,&ver,10);
+
+    return num;
+}
+
+float verifica_n_float(float max) {
+    char v[10];
+    float num;
+    char *ver;
+
+    do{
+        scanf("%s",v);
+        if(!numeroReal(v)){
+            printf("Digite um numero inteiro:");
+        }
+    }while(!numeroReal(v));
+
+    num = strtof(v,&ver);
+
+    return num;
+}
+
+void verifica_letra(char *v, int tam) {
+    
+    scanf("%s", v);
+    
 }
 
 int verifica_email(char *v){
@@ -109,21 +100,4 @@ void limparTela(){
     printf("Pressione qualquer tecla para continuar");
     getchar();
     system("cls||clear");
-}
-
-char recebeUmNumero(char v){
-    char temp;
-    do{
-        temp = getch();
-
-        if(temp >= '0' && temp <= '9'){
-            v = temp;
-            printf("%c",v);
-        }
-
-    }while(!(temp >= '0' && temp <= '9'));
-
-    
-
-    return v;
 }

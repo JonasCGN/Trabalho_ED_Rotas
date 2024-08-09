@@ -18,19 +18,13 @@ Cliente *cadastro(){
     printf("Nome: ");
     verifica_letra(novocliente->nome, 50);
 
-    printf("\n");
-
     printf("CPF: ");
     // verifica_n_int(novocliente->cpf, 11,11);
     verifica_n_int(novocliente->cpf, 1,11);
-    
-    printf("\n");
 
     printf("Telefone: ");
     // verifica_n_int(novocliente->telefone,11,11);
     verifica_n_int(novocliente->telefone,1,11);
-
-    printf("\n");
 
     printf("Email: ");
     do{
