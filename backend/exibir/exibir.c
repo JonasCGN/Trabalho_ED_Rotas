@@ -35,7 +35,7 @@ void exibirInfoCliente(Cliente *cliente){
 
 void exibirClientes(ListaCliente *listacliente){
     if (listacliente == NULL) {
-        return;
+        return printf("Nenhum cliente cadastrado!\n");
     }
 
     exibirClientes(listacliente->prox);
