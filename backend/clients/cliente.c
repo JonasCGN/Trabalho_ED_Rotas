@@ -109,7 +109,7 @@ void editarcliente(ListaCliente *cliente, int id){
             int valido;
             do{
                 valido = 1;
-                printf("Nome: ");
+                printf("Novo Nome: ");
                 fgets(atual->cliente->nome, 50, stdin);
                 atual->cliente->nome[strcspn(atual->cliente->nome, "\n")] = '\0';// remove o /n 
 
@@ -155,7 +155,7 @@ void excluircliente(ListaCliente **cliente, int id ){
    // printf("Excluir cliente com ID %d\n", id);
     ListaCliente *atual = *cliente;
     ListaCliente *anterior = NULL;
-  
+
     while (atual != NULL){
         if (atual->cliente->id_cliente == id){
             if (anterior == NULL){
@@ -164,9 +164,9 @@ void excluircliente(ListaCliente **cliente, int id ){
                 return;
             }else{
                 anterior->prox = atual->prox;
+                
             }
             free(atual);
-            printf("Cliente com Id %d excluido com sucesso.\n", id);
             return;
         }
         anterior = atual;
