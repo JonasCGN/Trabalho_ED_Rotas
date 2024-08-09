@@ -286,7 +286,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
 
         switch (op){
             case 1:
-                if ((*listaCliente) == NULL){
+                if (listaClienteVazia(listaCliente)){
                     printf("Nenhum cliente cadastrado\n");
                     break;
                 }
@@ -324,9 +324,10 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
-                printf("Digite o ID do cliente que deseja procurar:");
-                scanf("%d",&op);
-                procurarPedido(*listaPedido,op);
+
+                // printf("Digite o ID do cliente que deseja procurar:");
+                // scanf("%d",&op);
+                // procurarPedido(*listaPedido,op);
 
             break;
             case 5:
@@ -334,9 +335,10 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
-                printf("Digite o ID do pedido que deseja excluir:");
-                scanf("%d",&op);
-                excluirPedido(listaPedido,op);
+
+                // printf("Digite o ID do pedido que deseja excluir:");
+                // scanf("%d",&op);
+                // excluirPedido(listaPedido,op);
 
             break;
             case 0:
@@ -415,7 +417,7 @@ void menuEntrega(Rota **rota){
             break;
 
             case 4:
-                if((*rota)->entrega != NULL)
+                if(!entregaVazio((*rota)->entrega))
                     exibirEntrega((*rota)->entrega->ini);
                 else{
                     printf("Nao ha entregas para serem exibidas\n");
@@ -431,14 +433,17 @@ void menuEntrega(Rota **rota){
             break;
             
             case 6:
-                if((*rota)->devolucao != NULL)
+                if(!devolucaoVazio((*rota)->devolucao))
                     exibirDevolucao((*rota)->devolucao->ini);
                 else
                     printf("Nao ha devolucao para serem exibidas\n");
             break;
 
             case 7:
-                exibirHistorico((*rota)->historico);
+                if((*rota)->historico != NULL)
+                    exibirHistorico((*rota)->historico);
+                else
+                    printf("Nao ha nada no historico para serem exibidas\n");
             break;
 
             case 0:

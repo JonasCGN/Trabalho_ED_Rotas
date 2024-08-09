@@ -69,6 +69,7 @@ int listaClienteVazia(ListaCliente *listacliente){
 	return 0;
 }
 
+
 void liberaListaPedido(ListaPedido *l){
 	if(l == NULL)
 		return;

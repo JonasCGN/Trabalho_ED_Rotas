@@ -1,7 +1,6 @@
 #pragma once
 
 typedef struct pedido{
-    int id_pedido;
     int id_cliente;
     int id_pedido;
     char item[20];

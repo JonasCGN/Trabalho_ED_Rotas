@@ -47,7 +47,7 @@ int numero(int min,int max){
     return num;
 }
 
-float verifica_n_float(int min){
+float verifica_n_float(int max){
     int i=0,cont = 0;
     char c;
     
@@ -61,7 +61,7 @@ float verifica_n_float(int min){
         
         c = getch();
 
-        if(((c >= '0' && c <= '9') || c == '.') && i < min){
+        if(((c >= '0' && c <= '9') || c == '.') && i < max){
             if((c == '.' && cont == 0) && i != 0){
                 printf("%c", c);
                 *(v+i) = c;
@@ -85,7 +85,7 @@ float verifica_n_float(int min){
             c = 14;
         }
 
-        if(i < min){
+        if(i > max){
             c = 14;
         }
 
