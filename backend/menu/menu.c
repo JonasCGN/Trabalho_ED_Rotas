@@ -15,7 +15,7 @@ void telaInicial(){
     int opc;
 
     FilaListaRota *listarota = criaRota();
-    ListaPedido *listapedido = criaListaPedido();
+    FilaListaPedido *listapedido = criaListaPedido();
     ListaCliente *listaCliente = criaListaCliente();
     
     do{
@@ -66,7 +66,7 @@ void telaInicial(){
     }while(opc != 0);
 
     liberarListaCliente(listaCliente);
-    liberaListaPedido(listapedido);
+    liberaFilaListaPedido(listapedido);
     liberaFilaListaRota(listarota);
 }
 
@@ -201,7 +201,7 @@ void menuCliente(ListaCliente **listacliente){
 
 }
 
-void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
+void menuRota(FilaListaRota **rota,FilaListaPedido *listaPedido){
     int opc,id;
 
     do{
@@ -275,7 +275,7 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
     }while(opc != 0);
 }
 
-void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
+void menuPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
     int op;
     Pedido *pedido = NULL;
 
@@ -305,7 +305,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                     break;
                 }
 
-                mostrarPedidos(*listaPedido);
+                mostrarPedidos((*listaPedido)->ini);
             break;
             case 3:
                 if (listaPedidoVazia(*listaPedido)){
@@ -317,7 +317,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                 printf("Digite o id do pedido que deseja procura:");
                 scanf("%d", &id);
 
-                pedidoId(*listaPedido,id);
+                pedidoId((*listaPedido)->ini,id);
             break;
             case 4:
                 if (listaPedidoVazia(*listaPedido)){
@@ -379,7 +379,13 @@ void menuEntrega(Rota **rota){
 
         switch (op){
             case 1:
+                if(entregaVazio((*rota)->entrega)){
+                    printf("Nao ha mais pedidos para entrega");
+                    break;
+                }
+
                 retorno = menuPergunta((*rota)->entrega->ini->pedido);
+
                 if(retorno == 1){
                     if((*rota)->entrega != NULL)
                         adicionaHistorico((*rota)->entrega->ini->pedido,&((*rota)->historico));
@@ -395,6 +401,12 @@ void menuEntrega(Rota **rota){
                     printf("Nao eh possivel fazer o processo de segunda entrega ate que\ntodos os pedidos anteriores tenham sido processados\n");
                     break;
                 }
+                
+                if(segundaEntregaVazia((*rota)->segundaEntrega)){
+                    printf("Nao ha mais pedidos para segunda entrega");
+                    break;
+                }
+
                 retorno = menuPergunta((*rota)->segundaEntrega->pedido);
                 if(retorno == 1){
                     if((*rota)->segundaEntrega != NULL)
@@ -410,6 +422,11 @@ void menuEntrega(Rota **rota){
 
                 if((*rota)->devolucao != NULL)
                     adicionaHistorico((*rota)->devolucao->ini->pedido,&((*rota)->historico));
+
+                if(devolucaoVazio((*rota)->devolucao)){
+                    printf("Nao ha mais pedidos para serem devolvidos");
+                    break;
+                }
 
                 exibirPedido((*rota)->devolucao->ini->pedido);
                 processoDevolucao(&((*rota)->devolucao));

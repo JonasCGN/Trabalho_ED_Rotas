@@ -4,7 +4,7 @@
 
 void filaRota(Rota *rota,FilaListaRota **listaRota);
 void removefilaRota(FilaListaRota **listaRota);
-void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido);
+void cadastroRota(FilaListaRota **listaRota, FilaListaPedido *listaPedido);
 
 void procurarRota(ListaRota *rota, int id);
 void finalizarRota(Rota **rota,ListaHistorico *lista);
