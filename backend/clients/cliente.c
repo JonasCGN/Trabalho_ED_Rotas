@@ -6,6 +6,7 @@
 #include "../exibir/exibir.h"
 #include "../blindagem/blindagem.h"
 #include "cliente.h"
+
 static int proxid = 1;
 
 Cliente *cadastro(){
@@ -24,13 +25,13 @@ Cliente *cadastro(){
 
     printf("CPF: ");
     // verifica_n_int(novocliente->cpf, 11,11);
-    verifica_n_int(novocliente->cpf, 1,1);
+    verifica_n_int(novocliente->cpf, 1,11);
     
     printf("\n");
 
     printf("Telefone: ");
     // verifica_n_int(novocliente->telefone,11,11);
-    verifica_n_int(novocliente->telefone,1,1);
+    verifica_n_int(novocliente->telefone,1,11);
 
     printf("\n");
 
@@ -106,33 +107,25 @@ void editarcliente(ListaCliente *cliente, int id){
         if (atual->cliente->id_cliente == id){
             printf (" Editar cliente com ID %d: \n", id);
     
-            int valido;
-            do{
-                valido = 1;
-                printf("Novo Nome: ");
-                fgets(atual->cliente->nome, 50, stdin);
-                atual->cliente->nome[strcspn(atual->cliente->nome, "\n")] = '\0';// remove o /n 
+            printf("Novo Nome: ");
+            verifica_letra(atual->cliente->nome, 50);          
 
-                for (int i = 0; atual->cliente->nome[i] != '\0'; i++){
-                    if (!isalpha(atual->cliente->nome[i])  && atual->cliente->nome[i] != ' '){
-                        printf("Nome invalido, digite novamente.\n");
-                        valido = 0;
-                        break;
-                    }
-                }
-            }while(!valido);
+            printf("\nNovo CPF: ");
+            verifica_n_int(atual->cliente->cpf, 11,11);
 
-            printf("Novo CPF: ");
-            fgets(atual->cliente->cpf, 15, stdin);
-            atual->cliente->cpf[strcspn(atual->cliente->cpf, "\n")] = '\0';// remove o /n 
+            printf("\nNovo Telefone: ");
+            verifica_n_int(atual->cliente->cpf, 11,11);
 
-            printf("Novo Telefone: ");
-            fgets(atual->cliente->telefone, 15, stdin);
-            atual->cliente->telefone[strcspn(atual->cliente->telefone, "\n")] = '\0';// remove o /n 
+            fflush(stdin);
 
             printf("Novo Email: ");
-            fgets(atual->cliente->email, 50, stdin);
-            atual->cliente->email[strcspn(atual->cliente->email, "\n")] = '\0';// remove o /n 
+            do{
+                fgets(atual->cliente->email, 50, stdin);
+                atual->cliente->email[strcspn(atual->cliente->email, "\n")] = '\0';// remove o /n 
+                if(!verifica_email(atual->cliente->email)){
+                    printf("Email invalido, digite novamente.\n");
+                }
+            }while (!verifica_email(atual->cliente->email));
 
             printf("Novo Endereco: ");
             fgets(atual->cliente->endereco, 100, stdin);

@@ -6,34 +6,38 @@
 
 #include "blindagem.h"
 
-void verifica_n_int(char *v,int min,int max){
-    int i=0;
-
+void verifica_n_int(char *v, int min, int max) {
+    int i = 0;
     char c;
 
-    do{
+    do {
         c = getch();
 
-        if(c >= '0' && c <= '9'){
+        if (c >= '0' && c <= '9' && i < max) { 
             printf("%c", c);
-            *(v+i) = c;
+
+            v[i] = c;
             i++;
-        }else if(c == 8 && i >= 1){
-            *(v+i) = '\0';
+        } else if (c == 8 && i >= 1) {
+            i--; 
+            v[i] = '\0';
             printf("\b \b");
-            i--;
         }
 
-        if(c == 13 && (i < min || i > max)){
-            c=14;
+        if (c == 13 && i < min) { 
+            c = 14;
         }
-    }while(c != 13);
+    } while (c != 13);
 
-    *(v+i) = '\0';
+    v[i] = '\0';
 }
 
 int numero(int min,int max){
-    char *v = (char*)calloc(10,sizeof(char));
+    char *v = (char*)calloc(max + 1,sizeof(char));
+    if(!v){
+        printf("Erro ao aolcoar memoria do numero\n");
+        return 1;
+    }
 
     verifica_n_int(v,min,max);
 
@@ -43,17 +47,21 @@ int numero(int min,int max){
     return num;
 }
 
-float verifica_n_float(int min){
+float verifica_n_float(int max){
     int i=0,cont = 0;
     char c;
     
     char *v = (char*)calloc(10,sizeof(char));
+    if(!v){
+        printf("Erro ao alocar memoria\n");
+        return 10.0;
+    }
 
     do{
         
         c = getch();
 
-        if((c >= '0' && c <= '9') || c == '.'){
+        if(((c >= '0' && c <= '9') || c == '.') && i < max){
             if((c == '.' && cont == 0) && i != 0){
                 printf("%c", c);
                 *(v+i) = c;
@@ -76,7 +84,8 @@ float verifica_n_float(int min){
         }else if(c == 13 && *(v+i-1) == '.'){
             c = 14;
         }
-        if(i < min){
+
+        if(i > max){
             c = 14;
         }
 
@@ -101,7 +110,7 @@ void verifica_letra(char *v,int tam){
     do{
         c = getch();
 
-        if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c == ' ')){
+        if(((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c == ' ')) && i < tam){
             printf("%c", c);
             *(v+i) = c;
             i++;

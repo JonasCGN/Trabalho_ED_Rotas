@@ -2,12 +2,21 @@
 #include <stdlib.h>
 
 #include "../clients/cliente.h"
+#include "../cria_libera/cria_libera.h"
+#include "../exibir/exibir.h"
 #include "../blindagem/blindagem.h"
 #include "pedidos.h"
 
+static int proxid = 1;
+
 void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido){
     ListaPedido *novo = (ListaPedido*) malloc(sizeof(ListaPedido));
-
+    
+    if(!novo){
+        printf("Erro ao alocar memoria para lista pedidos");
+        return;
+    }
+    
     novo->pedido = pedido;
     novo->prox = *listaPedido;
 
@@ -15,16 +24,19 @@ void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido){
 
 }
 
-Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
+Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
     Pedido *pedido = (Pedido*)malloc(sizeof(Pedido));
 
     printf("Digite o id do cliente: ");
     int id = numero(1, 1100000);
 
-    if(!verificaCliente(*listaCliente,id))
+    if(!verificaCliente(listaCliente,id))
         return NULL;
     printf("\nCliente encontrado\n");
     pedido->id_cliente = id;
+
+    pedido->id_pedido = proxid;
+    proxid++;
 
     printf("Digite o item: ");
     verifica_letra(pedido->item, 20);
@@ -33,7 +45,7 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
     pedido->quantidade = numero(1, 5);
 
     printf("\nDigite o valor: ");
-    pedido->valor = verifica_n_float(1);
+    pedido->valor = verifica_n_float(5);
     
     pedido->status = 0;
 
@@ -56,33 +68,15 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
     return pedido;
 }
 
-void excluiPedido(ListaPedido **listaPedido, int id){
-    ListaPedido *aux = *listaPedido;
-    ListaPedido *ant = NULL;
-
-    while (aux != NULL && aux->pedido->id_pedido != id) {
-        ant = aux;
-        aux = aux->prox;
+void pedidoId(ListaPedido *listapedido,int id){
+    if(listaPedidoVazia(listapedido)){
+        return;
     }
-
-    if (aux == NULL) {
-        printf("Pedido nao encontrado!\n");
+    
+    if(listapedido->pedido->id_pedido == id){
+        exibirPedido(listapedido->pedido);
         return;
     }
 
-    if (aux->pedido->status != 0) {
-        printf("Pedido nao pode ser excluido!\n");
-        return;
-    }
-
-    if (ant == NULL) {
-        *listaPedido = aux->prox;
-    } else {
-        ant->prox = aux->prox;
-    }
-
-    free(aux);
-    printf("Pedido excluido com sucesso!\n");
+    pedidoId(listapedido->prox,id);
 }
-
-
