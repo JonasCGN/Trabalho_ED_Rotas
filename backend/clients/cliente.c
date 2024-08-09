@@ -5,9 +5,8 @@
 
 #include "../exibir/exibir.h"
 #include "../blindagem/blindagem.h"
+#include "../cria_libera/cria_libera.h"
 #include "cliente.h"
-
-static int proxid = 1;
 
 Cliente *cadastro(){
     Cliente *novocliente = (Cliente *)malloc(sizeof(Cliente));
@@ -15,8 +14,6 @@ Cliente *cadastro(){
         printf("ERRO NA ALOCAÇÃO DE MEMÓRIA!!!");
         exit(1);
     }
-
-    novocliente->id_cliente = proxid++;
     
     printf("Nome: ");
     verifica_letra(novocliente->nome, 50);
@@ -55,13 +52,18 @@ Cliente *cadastro(){
 
 void cadastroCliente(ListaCliente **listaCliente){
     Cliente *cliente_novo = cadastro();
-
     ListaCliente *novo;
+
 	novo = (ListaCliente*)malloc(sizeof(ListaCliente));
     if(!novo){
         printf("Nao foi possivel alocar para entrega\n");
         exit(1);
     }
+    
+    if(listaClienteVazia(*listaCliente))
+        cliente_novo->id_cliente = 1;
+    else
+        cliente_novo->id_cliente = (*listaCliente)->cliente->id_cliente + 1;
 
     novo->cliente = cliente_novo;
     novo->prox = *listaCliente;

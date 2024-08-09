@@ -57,6 +57,7 @@ float verifica_n_float(int max){
         gets(v);
         if(atof(v) != 0){
             num = atof(v);
+            break;
         }else{
             printf("\nDigite um numero real:");
         }
