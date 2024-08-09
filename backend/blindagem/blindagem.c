@@ -36,15 +36,16 @@ int numero(int min,int max){
     char v[10];
     int num;
 
-    do{
+    while (1){
         gets(v);
         if(atoi(v) != 0){
             num = atoi(v);
+            break;
         }else{
             printf("\nDigite um numero inteiro:");
         }
-    }while(atoi(v) != 0);
-
+    }
+    
     return num;
 }
 
@@ -52,14 +53,15 @@ float verifica_n_float(int max){
     char v[10];
     int num;
 
-    do{
+    while (1){
         gets(v);
         if(atof(v) != 0){
             num = atof(v);
+            break;
         }else{
             printf("\nDigite um numero real:");
         }
-    }while(atof(v) != 0);
+    }
 
     return num;
 }

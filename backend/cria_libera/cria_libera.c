@@ -73,6 +73,7 @@ int listaClienteVazia(ListaCliente *listacliente){
 	if(listacliente == NULL){
 		return 1;
 	}
+	
 	return 0;
 }
 
