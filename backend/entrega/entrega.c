@@ -132,6 +132,7 @@ void primeiraEntrega(FilaListaEntrega **entrega){
 	if(*entrega != NULL){
 		(*entrega)->ini->pedido->status = 2;
 		removeFilaEntrega(entrega);
+		printf("Pedido entregado com sucesso!");
 	}else{
 		printf("Nao ha pedidos para serem entregados\n");
 	}
@@ -174,6 +175,8 @@ void processoDevolucao(FilaListaDevolucao **devolucao){
 	if(*devolucao != NULL){
 		(*devolucao)->ini->pedido->status = 5;
 		removeDevolucao(devolucao);
+		
+		printf("Pedido devolvido com sucesso!");
 	}else{
 		printf("Nao ha pedidos para serem devolvidos\n");
 	}

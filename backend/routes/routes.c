@@ -50,7 +50,7 @@ void removefilaRota(FilaListaRota **listaRota){
 
 void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido){
 	
-	if(!listaPedidoVazia(listaPedido)){
+	if(listaPedidoVazia(listaPedido)){
 		printf("Nao ha pedidos para criar rota\n");
 		return;
 	}

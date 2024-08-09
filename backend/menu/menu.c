@@ -37,7 +37,7 @@ void telaInicial(){
             break;
 
             case 2:
-                menuPedido(&listapedido, &listaCliente);
+                menuPedido(&listapedido, listaCliente);
             break;
 
             case 3:
@@ -148,11 +148,11 @@ void menuCliente(ListaCliente **listacliente){
             break;
 
             case 2:
-                exibirClientes(*listacliente);
+                mostrarClientes(*listacliente);
             break;
         
             case 3:
-                if ((*listacliente) == NULL){
+                if (listaClienteVazia(*listacliente)){
                     printf("Nenhum cliente cadastrado\n");
                     break;
                 }
@@ -165,7 +165,7 @@ void menuCliente(ListaCliente **listacliente){
             break;
 
             case 4:
-                if ((*listacliente) == NULL){
+                if (listaClienteVazia(*listacliente)){
                     printf("Nenhum cliente cadastrado\n");
                     break;
                 }
@@ -176,7 +176,7 @@ void menuCliente(ListaCliente **listacliente){
             break;
 
             case 5:
-                if ((*listacliente) == NULL){
+                if (listaClienteVazia(*listacliente)){
                     printf("Nenhum cliente cadastrado\n");
                     break;
                 }
@@ -256,6 +256,8 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
                     break;
                 }
                 finalizarRota(&((*rota)->fim->rota),(*rota)->fim->rota->historico);
+
+                printf("Rota finalizada com sucesso!");
             break;
             case 0:
                 printf("Voltando...");
@@ -271,50 +273,65 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
     }while(opc != 0);
 }
 
-void menuPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
+void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
     int op;
     Pedido *pedido = NULL;
 
     do{
         op = exibeOpcaoPedido();
 
+        system("cls||clear");
+
         switch (op){
             case 1:
                 pedido = cadastrarPedido(listaPedido, listaCliente);
+
                 if(pedido != NULL){
-                    printf("Pedido cadastrado com sucesso\n");
+                    printf("\nPedido cadastrado com sucesso\n");
                 }else{
                     printf("Cliente nao encontrado\n");
                 }
+            
             break;
             case 2:
-                if ((*listaPedido) == NULL){
+                if (listaPedidoVazia(*listaPedido)){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
+
                 mostrarPedidos(*listaPedido);
             break;
             case 3:
-
-            break;
-            case 4:
-                if ((*listaPedido) == NULL){
+                if (listaPedidoVazia(*listaPedido)){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
-                printf("Digite o ID do cliente que deseja procurar:");
-                scanf("%d",&op);
-                procurarPedido(*listaPedido,op);
+                static int id;
+
+                printf("Digite o id do pedido que deseja procura:");
+                scanf("%d", &id);
+
+                pedidoId(*listaPedido,id);
+            break;
+            case 4:
+                if (listaPedidoVazia(*listaPedido)){
+                    printf("Nenhum pedido cadastrado\n");
+                    break;
+                }
+
+                // printf("Digite o ID do cliente que deseja procurar:");
+                // scanf("%d",&op);
+                // procurarPedido(*listaPedido,op);
 
             break;
             case 5:
-                if ((*listaPedido) == NULL){
+                if (listaPedidoVazia(*listaPedido)){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
-                printf("Digite o ID do pedido que deseja excluir:");
-                scanf("%d",&op);
-                excluirPedido(listaPedido,op);
+                // printf("Digite o ID do pedido que deseja excluir:");
+                // scanf("%d",&op);
+                // excluirPedido(listaPedido,op);
 
             break;
             case 0:
@@ -330,8 +347,11 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
 
 }
 
-int menuPergunta(){
+int menuPergunta(Pedido *pedido){
     int op;
+
+    exibirPedido(pedido);
+
     printf("Pedido foi entregue:\n");
     printf("1 - Sim\n");
     printf("2 - Nao\n");
@@ -352,7 +372,7 @@ void menuEntrega(Rota **rota){
 
         switch (op){
             case 1:
-                retorno = menuPergunta();
+                retorno = menuPergunta((*rota)->entrega->ini->pedido);
                 if(retorno == 1){
                     if((*rota)->entrega != NULL)
                         adicionaHistorico((*rota)->entrega->ini->pedido,&((*rota)->historico));
@@ -368,7 +388,7 @@ void menuEntrega(Rota **rota){
                     printf("Nao eh possivel fazer o processo de segunda entrega ate que\ntodos os pedidos anteriores tenham sido processados\n");
                     break;
                 }
-                retorno = menuPergunta();
+                retorno = menuPergunta((*rota)->segundaEntrega->pedido);
                 if(retorno == 1){
                     if((*rota)->segundaEntrega != NULL)
                         adicionaHistorico((*rota)->segundaEntrega->pedido,&((*rota)->historico));
@@ -384,6 +404,7 @@ void menuEntrega(Rota **rota){
                 if((*rota)->devolucao != NULL)
                     adicionaHistorico((*rota)->devolucao->ini->pedido,&((*rota)->historico));
 
+                exibirPedido((*rota)->devolucao->ini->pedido);
                 processoDevolucao(&((*rota)->devolucao));
 
             break;

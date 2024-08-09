@@ -3,6 +3,8 @@
 #include "../estrutura/estrutura.h"
 
 void exibirPedido(Pedido *pedido);
+
+void mostrarClientes(ListaCliente *listacliente);
 void exibirClientes( ListaCliente *cliente);
 void exibirInfoCliente(Cliente *cliente);
 
