@@ -9,22 +9,35 @@
 
 static int proxid = 1;
 
-void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido){
-    ListaPedido *novo = (ListaPedido*) malloc(sizeof(ListaPedido));
-    
-    if(!novo){
-        printf("Erro ao alocar memoria para lista pedidos");
-        return;
-    }
-    
-    novo->pedido = pedido;
-    novo->prox = *listaPedido;
+void adicionaPedido(FilaListaPedido **listaPedido, Pedido *pedido){
+    ListaPedido *novo;
+	novo = (ListaPedido*)malloc(sizeof(ListaPedido));
+	if(!novo){
+		printf("Nao foi possivel alocar para devolucao\n");
+		exit(1);
+	}
 
-    *listaPedido = novo;
+	novo->pedido = pedido;
+	novo->prox = NULL;
+
+	if(listaPedidoVazia(*listaPedido)){
+
+		FilaListaPedido *aux = (FilaListaPedido*)malloc(sizeof(FilaListaPedido));
+
+		aux->fim = novo;
+		aux->ini = novo;
+
+		*listaPedido = aux;
+
+		return;
+	}
+
+	(*listaPedido)->fim->prox = novo;
+	(*listaPedido)->fim = novo;
 
 }
 
-Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
+Pedido* cadastrarPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
     Pedido *pedido = (Pedido*)malloc(sizeof(Pedido));
 
     printf("Digite o id do cliente: ");
@@ -49,29 +62,12 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
     
     pedido->status = 0;
 
-    // Verifica o id de todos os pedidos e atribui automaticamente o próximo valor como id
-    ListaPedido *auxId = *listaPedido;
-    int novoId = 1;
-
-    while (auxId != NULL) {
-        if (auxId->pedido->id_pedido >= novoId) {
-            novoId = auxId->pedido->id_pedido + 1;
-        }
-        auxId = auxId->prox;
-    }
-
-    pedido->id_pedido = novoId;
-   
-
     adicionaPedido(listaPedido, pedido);
 
     return pedido;
 }
 
 void pedidoId(ListaPedido *listapedido,int id){
-    if(listaPedidoVazia(listapedido)){
-        return;
-    }
     
     if(listapedido->pedido->id_pedido == id){
         exibirPedido(listapedido->pedido);
