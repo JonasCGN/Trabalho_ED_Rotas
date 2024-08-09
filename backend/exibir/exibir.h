@@ -11,6 +11,7 @@ void exibirInfoCliente(Cliente *cliente);
 
 void exibirInfoRota(Rota *rota);
 void exibirRotas(ListaRota *listaRota);
+void exibirPedidosDeRotas(ListaRota *listaRota);
 
 void exibirEntrega(ListaEntrega *entregas);
 void mostrarPedidos(ListaPedido *lista);

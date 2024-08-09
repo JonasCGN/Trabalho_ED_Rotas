@@ -112,7 +112,7 @@ void editarcliente(ListaCliente *cliente, int id){
 
             fflush(stdin);
 
-            printf("Novo Email: ");
+            printf("\nNovo Email: ");
             do{
                 fgets(atual->cliente->email, 50, stdin);
                 atual->cliente->email[strcspn(atual->cliente->email, "\n")] = '\0';// remove o /n 
