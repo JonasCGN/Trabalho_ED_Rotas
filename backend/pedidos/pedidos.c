@@ -56,23 +56,33 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
     return pedido;
 }
 
-void procurarPedido(ListaPedido *listaPedido, int id){
-    ListaPedido *aux = listaPedido;
+void excluiPedido(ListaPedido **listaPedido, int id){
+    ListaPedido *aux = *listaPedido;
+    ListaPedido *ant = NULL;
 
-    while(aux != NULL){
-        if(aux->pedido->id_pedido == id){
-            printf("Pedido encontrado\n");
-            printf("ID: %d\n", aux->pedido->id_pedido);
-            printf("ID Cliente: %d\n", aux->pedido->id_cliente);
-            printf("Item: %s\n", aux->pedido->item);
-            printf("Quantidade: %d\n", aux->pedido->quantidade);
-            printf("Valor: %.2f\n", aux->pedido->valor);
-            printf("Status: %d\n", aux->pedido->status);
-            return;
-        }
+    while (aux != NULL && aux->pedido->id_pedido != id) {
+        ant = aux;
         aux = aux->prox;
     }
-    printf("Pedido não encontrado\n");
+
+    if (aux == NULL) {
+        printf("Pedido nao encontrado!\n");
+        return;
+    }
+
+    if (aux->pedido->status != 0) {
+        printf("Pedido nao pode ser excluido!\n");
+        return;
+    }
+
+    if (ant == NULL) {
+        *listaPedido = aux->prox;
+    } else {
+        ant->prox = aux->prox;
+    }
+
+    free(aux);
+    printf("Pedido excluido com sucesso!\n");
 }
 
 

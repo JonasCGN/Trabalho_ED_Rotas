@@ -306,10 +306,17 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente **listaCliente){
                 }
                 printf("Digite o ID do pedido que deseja procurar:");
                 int id = numero(1, 1100000);
-                procurarPedido(*listaPedido, id);
+                exibirPedidosPorId(*listaPedido, id);
 
             break;
             case 4:
+                 if ((*listaPedido) == NULL){
+                    printf("Nenhum pedido cadastrado\n");
+                    break;
+                }   
+                printf("Digite o ID do cliente que deseja procurar:");
+                int id_cliente = numero(1, 1100000);
+                exibirPedidosPorIdCliente(*listaPedido, id_cliente);
             
             break;
             case 5:

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../estrutura/estrutura.h"
 #include "exibir.h"
@@ -14,7 +15,8 @@ void exibirPedido(Pedido *pedido){
 		"Devolucao Concluida"
 	};
 
-	printf("--------------------------------------\n");
+	printf("\n--------------------------------------\n");
+	printf("ID Pedido: %d\n",pedido->id_pedido);
 	printf("ID Cliente: %d\n",pedido->id_cliente);
 	printf("Nome: %s\n",pedido->item);
 	printf("Quantidade: %03d\n",pedido->quantidade);
@@ -49,6 +51,7 @@ void exibirInfoRota(Rota *rota){
 
 	printf("ID Rota: %d\n", rota->id_rota);
 	printf("Score: %d\n", rota->score);
+	exibirPedido(rota->entrega->ini->pedido);
 	printf("\n");
 }
 
@@ -80,4 +83,36 @@ void exibirHistorico(ListaHistorico *listahistorico){
 		
 	exibirPedido(listahistorico->pedido);
 	exibirHistorico(listahistorico->prox);
+}
+
+void exibirPedidosDeRotas(ListaRota *listaRota){
+	if(listaRota == NULL)
+		return;
+
+	exibirEntrega(listaRota->rota->entrega->ini);
+	exibirPedidosDeRotas(listaRota->prox);
+}
+
+void exibirPedidosPorId(ListaPedido *listaPedido, int id){
+    ListaPedido *aux = listaPedido;
+
+    while(aux != NULL){
+        if(aux->pedido->id_pedido == id){
+            exibirPedido(aux->pedido);
+            return;
+        }
+        aux = aux->prox;
+    }
+    printf("Pedido não encontrado\n");
+}
+
+void exibirPedidosPorIdCliente(ListaPedido *listaPedido, int idCliente){
+    ListaPedido *aux = listaPedido;
+
+    while(aux != NULL){
+        if(aux->pedido->id_cliente == idCliente){
+           exibirPedido(aux->pedido);
+        }
+        aux = aux->prox;
+    }
 }

@@ -57,12 +57,11 @@ void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido){
 		rota->entrega = criaListaEntregraRota(listaPedido);
 		
 		if(rota->entrega == NULL){
-			printf("Nao foi possivel criar a rota\n");
+			printf("Nao foi possivel criar a rota, verifique se a pedidos cadastrados\n");
 			return;
 		}else{
 			printf("Rota criada\n");
 		}
-
 		rota->segundaEntrega = criaListaSegundaEntrega();
 		rota->devolucao = criaListaDevolucao();
 		rota->historico = criaListaHistorico();

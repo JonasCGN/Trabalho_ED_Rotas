@@ -15,6 +15,7 @@ typedef struct pedido{
         5 - Devolução Concluida
     */
     int status;
+    int id_rota;
 }Pedido;
 
 typedef struct listaPedido{
