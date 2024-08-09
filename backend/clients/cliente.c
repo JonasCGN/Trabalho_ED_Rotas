@@ -33,10 +33,11 @@ Cliente *cadastro(){
         }
     }while(!valido);
 
-    do{
+    do{// erro nessa degraça 
         valido = 1;
         printf("CPF: ");
-        fgets(novocliente->cpf, 11, stdin);
+        getchar();
+        fgets(novocliente->cpf, 14, stdin);// aqui 
         novocliente->cpf[strcspn(novocliente->cpf, "\n")] = '\0'; 
 
         if (strlen(novocliente->cpf) != 11){
