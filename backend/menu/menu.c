@@ -125,7 +125,9 @@ int exibeOpcaoEntrega(){
     printf("2. Segunda Entrega\n");
     printf("3. Devolucao\n");
     printf("4. Exibir Entregas\n");
-    printf("5. Exibir Historico\n");
+    printf("5. Exibir Segunda Entregas\n");
+    printf("6. Exibir Devolucoes\n");
+    printf("7. Exibir Historico\n");
     printf("0 - Voltar\n");
     printf("Escolha uma opcao: ");
     scanf("%d", &op);
@@ -412,9 +414,27 @@ void menuEntrega(Rota **rota){
             case 4:
                 if((*rota)->entrega != NULL)
                     exibirEntrega((*rota)->entrega->ini);
+                else{
+                    printf("Nao ha entregas para serem exibidas\n");
+                }   
+            break;
+            
+            case 5:
+                if((*rota)->segundaEntrega != NULL)
+                    exibirSegundaEntrega((*rota)->segundaEntrega);
+                else{
+                    printf("Nao ha segunda entregas para serem exibidas\n");
+                }
+            break;
+            
+            case 6:
+                if((*rota)->devolucao != NULL)
+                    exibirDevolucao((*rota)->devolucao->ini);
+                else
+                    printf("Nao ha devolucao para serem exibidas\n");
             break;
 
-            case 5:
+            case 7:
                 exibirHistorico((*rota)->historico);
             break;
 

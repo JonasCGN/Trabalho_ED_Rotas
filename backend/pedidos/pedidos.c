@@ -45,7 +45,7 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
     pedido->quantidade = numero(1, 5);
 
     printf("\nDigite o valor: ");
-    pedido->valor = verifica_n_float(1);
+    pedido->valor = verifica_n_float(5);
     
     pedido->status = 0;
 

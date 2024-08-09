@@ -79,6 +79,22 @@ void exibirEntrega(ListaEntrega *entregas){
     exibirEntrega(entregas->prox);
 } 
 
+void exibirSegundaEntrega(PilhaSegundaEntrega *listasegunda){
+	if(listasegunda == NULL)
+        return;
+
+    exibirPedido(listasegunda->pedido);
+    exibirSegundaEntrega(listasegunda->prox);
+}
+
+void exibirDevolucao(ListaDevolucao *listaDevolucao){
+	if(listaDevolucao == NULL)
+        return;
+
+    exibirPedido(listaDevolucao->pedido);
+    exibirDevolucao(listaDevolucao->prox);
+}
+
 void mostrarPedidos(ListaPedido *lista){
 	if(lista == NULL)
 		return;
