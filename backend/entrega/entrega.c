@@ -6,15 +6,11 @@
 #include "entrega.h"
 
 int processoEntrega(FilaListaEntrega *listaEntrega, PilhaSegundaEntrega *segundaEntrega, FilaListaDevolucao *devolucao){
-	if(listaEntrega == NULL){
-		return 0;
-	}else if(segundaEntrega == NULL){
-		return 0;
-	}else if(devolucao == NULL){
-		return 0;
-	}
 
-	return 1;
+	if(listaEntrega != NULL || segundaEntrega != NULL || devolucao != NULL)
+		return 1;
+
+	return 0;
 }
 
 void pedidoFilaEntrega(Pedido *pedido, FilaListaEntrega **entregas){
@@ -136,6 +132,7 @@ void primeiraEntrega(FilaListaEntrega **entrega){
 	if(*entrega != NULL){
 		(*entrega)->ini->pedido->status = 2;
 		removeFilaEntrega(entrega);
+		printf("Pedido entregado com sucesso!");
 	}else{
 		printf("Nao ha pedidos para serem entregados\n");
 	}
@@ -178,6 +175,8 @@ void processoDevolucao(FilaListaDevolucao **devolucao){
 	if(*devolucao != NULL){
 		(*devolucao)->ini->pedido->status = 5;
 		removeDevolucao(devolucao);
+		
+		printf("Pedido devolvido com sucesso!");
 	}else{
 		printf("Nao ha pedidos para serem devolvidos\n");
 	}

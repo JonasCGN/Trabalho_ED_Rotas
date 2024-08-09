@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "../estrutura/estrutura.h"
+#include "../cria_libera/cria_libera.h"
 #include "exibir.h"
 
 void exibirPedido(Pedido *pedido){
@@ -15,6 +16,7 @@ void exibirPedido(Pedido *pedido){
 	};
 
 	printf("--------------------------------------\n");
+	printf("Id Pedido: %d\n", pedido->id_pedido);
 	printf("ID Cliente: %d\n",pedido->id_cliente);
 	printf("Nome: %s\n",pedido->item);
 	printf("Quantidade: %03d\n",pedido->quantidade);
@@ -33,9 +35,18 @@ void exibirInfoCliente(Cliente *cliente){
 	printf("\n");
 }
 
+void mostrarClientes(ListaCliente *listacliente){
+	if(listaClienteVazia(listacliente)){
+		printf("Nenhum cliente cadastrado!\n");
+		return;
+	}
+
+	exibirClientes(listacliente);
+}
+
 void exibirClientes(ListaCliente *listacliente){
     if (listacliente == NULL) {
-        return printf("Nenhum cliente cadastrado!\n");
+        return;
     }
 
     exibirClientes(listacliente->prox);
@@ -63,13 +74,31 @@ void exibirRotas(ListaRota *listaRota){
 void exibirEntrega(ListaEntrega *entregas){
     if(entregas == NULL)
         return;
+
     exibirPedido(entregas->pedido);
     exibirEntrega(entregas->prox);
 } 
 
+void exibirSegundaEntrega(PilhaSegundaEntrega *listasegunda){
+	if(listasegunda == NULL)
+        return;
+
+    exibirPedido(listasegunda->pedido);
+    exibirSegundaEntrega(listasegunda->prox);
+}
+
+void exibirDevolucao(ListaDevolucao *listaDevolucao){
+	if(listaDevolucao == NULL)
+        return;
+
+    exibirPedido(listaDevolucao->pedido);
+    exibirDevolucao(listaDevolucao->prox);
+}
+
 void mostrarPedidos(ListaPedido *lista){
 	if(lista == NULL)
 		return;
+		
 	exibirPedido(lista->pedido);
 	mostrarPedidos(lista->prox);
 }

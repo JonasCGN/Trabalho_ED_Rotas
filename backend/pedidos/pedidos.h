@@ -3,8 +3,5 @@
 #include "../estrutura/estrutura.h"
 
 void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido);
-Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente **listaCliente);
-
-void procurarPedido(ListaPedido *listaPedido, int id);
-
-
+Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente);
+void pedidoId(ListaPedido *listapedido,int id);

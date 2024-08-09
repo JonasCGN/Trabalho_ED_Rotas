@@ -32,6 +32,8 @@ FilaListaDevolucao* criaListaDevolucao(){
 	return NULL;
 }
 
+
+
 int entregaVazio(FilaListaEntrega *fila){
 	if(fila == NULL)
 		return 1;
@@ -52,6 +54,21 @@ int rotaVazia(FilaListaRota *listaRota){
 
 	return 0;
 }
+
+int listaPedidoVazia(ListaPedido *listaPedido){
+    if(listaPedido == NULL)
+        return 1;
+
+    return 0;
+}
+
+int listaClienteVazia(ListaCliente *listacliente){
+	if(listacliente == NULL){
+		return 1;
+	}
+	return 0;
+}
+
 
 void liberaListaPedido(ListaPedido *l){
 	if(l == NULL)

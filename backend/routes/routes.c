@@ -49,8 +49,13 @@ void removefilaRota(FilaListaRota **listaRota){
 }
 
 void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido){
+	
+	if(listaPedidoVazia(listaPedido)){
+		printf("Nao ha pedidos para criar rota\n");
+		return;
+	}
 
-	if((*listaRota) == NULL){
+	if((*listaRota) == NULL || (*listaRota)->fim->rota->score != 0){
 		Rota *rota = (Rota*)malloc(sizeof(Rota));	
 		
 		rota->score = 0;
@@ -69,17 +74,6 @@ void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido){
 
 		filaRota(rota,listaRota);
 		return;
-	}
-
-	if((*listaRota)->fim->rota->score != 0 ){
-		Rota *rota = (Rota*)malloc(sizeof(Rota));	
-		
-		rota->score = 0;
-		rota->entrega = criaListaEntrega();
-		rota->segundaEntrega = criaListaSegundaEntrega();
-		rota->devolucao = criaListaDevolucao();
-
-		filaRota(rota,listaRota);
 	}else{
 		printf("Rota nao cadastrado, ate que a anterior seja concluida\n");
 	}
@@ -135,7 +129,6 @@ void adicionaHistorico(Pedido *pedido,ListaHistorico **listahistorico){
 
 FilaListaEntrega * criaListaEntregraRota(ListaPedido *listaPedido){
 	FilaListaEntrega *entregas = criaListaEntrega();
-
 
 	entregaRota(&entregas,listaPedido);
 
