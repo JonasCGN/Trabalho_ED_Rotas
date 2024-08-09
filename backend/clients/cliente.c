@@ -44,8 +44,6 @@ Cliente *cadastro(){
         }
     }while (!verifica_email(novocliente->email));
     
-    printf("\n");
-
     printf("Endereco: ");
     fgets(novocliente->endereco, 100, stdin);
     novocliente->endereco[strcspn(novocliente->endereco, "\n")] = '\0';// remove o /n 
