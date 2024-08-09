@@ -7,14 +7,12 @@
 #include "../blindagem/blindagem.h"
 #include "pedidos.h"
 
-static int proxid = 1;
-
 void adicionaPedido(FilaListaPedido **listaPedido, Pedido *pedido){
     ListaPedido *novo;
 	novo = (ListaPedido*)malloc(sizeof(ListaPedido));
 	if(!novo){
-		printf("Nao foi possivel alocar para devolucao\n");
-		exit(1);
+		printf("Nao foi possivel alocar para pedido\n");
+		return;
 	}
 
 	novo->pedido = pedido;
@@ -45,19 +43,22 @@ Pedido* cadastrarPedido(FilaListaPedido **listaPedido, ListaCliente *listaClient
 
     if(!verificaCliente(listaCliente,id))
         return NULL;
-    printf("\nCliente encontrado\n");
+    printf("Cliente encontrado\n");
     pedido->id_cliente = id;
-
-    pedido->id_pedido = proxid;
-    proxid++;
+    
+    if(listaPedidoVazia(*listaPedido))
+        pedido->id_pedido = 1;
+    else
+        pedido->id_pedido = (*listaPedido)->fim->pedido->id_pedido + 1;
 
     printf("Digite o item: ");
     verifica_letra(pedido->item, 20);
 
-    printf("\nDigite a quantidade: ");
+    printf("Digite a quantidade: ");
+
     pedido->quantidade = numero(1, 5);
 
-    printf("\nDigite o valor: ");
+    printf("Digite o valor: ");
     pedido->valor = verifica_n_float(5);
     
     pedido->status = 0;

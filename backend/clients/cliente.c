@@ -5,9 +5,8 @@
 
 #include "../exibir/exibir.h"
 #include "../blindagem/blindagem.h"
+#include "../cria_libera/cria_libera.h"
 #include "cliente.h"
-
-static int proxid = 1;
 
 Cliente *cadastro(){
     Cliente *novocliente = (Cliente *)malloc(sizeof(Cliente));
@@ -15,25 +14,17 @@ Cliente *cadastro(){
         printf("ERRO NA ALOCAÇÃO DE MEMÓRIA!!!");
         exit(1);
     }
-
-    novocliente->id_cliente = proxid++;
     
     printf("Nome: ");
     verifica_letra(novocliente->nome, 50);
 
-    printf("\n");
-
     printf("CPF: ");
    
     verifica_n_int(novocliente->cpf, 1,11);
-    
-    printf("\n");
 
     printf("Telefone: ");
 
     verifica_n_int(novocliente->telefone,1,11);
-
-    printf("\n");
 
     printf("Email: ");
     do{
@@ -44,8 +35,6 @@ Cliente *cadastro(){
         }
     }while (!verifica_email(novocliente->email));
     
-    printf("\n");
-
     printf("Endereco: ");
     fgets(novocliente->endereco, 100, stdin);
     novocliente->endereco[strcspn(novocliente->endereco, "\n")] = '\0';// remove o /n 
@@ -55,13 +44,18 @@ Cliente *cadastro(){
 
 void cadastroCliente(ListaCliente **listaCliente){
     Cliente *cliente_novo = cadastro();
-
     ListaCliente *novo;
+
 	novo = (ListaCliente*)malloc(sizeof(ListaCliente));
     if(!novo){
         printf("Nao foi possivel alocar para entrega\n");
         exit(1);
     }
+    
+    if(listaClienteVazia(*listaCliente))
+        cliente_novo->id_cliente = 1;
+    else
+        cliente_novo->id_cliente = (*listaCliente)->cliente->id_cliente + 1;
 
     novo->cliente = cliente_novo;
     novo->prox = *listaCliente;
@@ -116,7 +110,7 @@ void editarcliente(ListaCliente *cliente, int id){
 
             fflush(stdin);
 
-            printf("Novo Email: ");
+            printf("\nNovo Email: ");
             do{
                 fgets(atual->cliente->email, 50, stdin);
                 atual->cliente->email[strcspn(atual->cliente->email, "\n")] = '\0';// remove o /n 
