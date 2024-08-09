@@ -286,6 +286,10 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
 
         switch (op){
             case 1:
+                if ((*listaCliente) == NULL){
+                    printf("Nenhum cliente cadastrado\n");
+                    break;
+                }
                 pedido = cadastrarPedido(listaPedido, listaCliente);
 
                 if(pedido != NULL){
@@ -320,20 +324,19 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
-
-                // printf("Digite o ID do cliente que deseja procurar:");
-                // scanf("%d",&op);
-                // procurarPedido(*listaPedido,op);
+                printf("Digite o ID do cliente que deseja procurar:");
+                scanf("%d",&op);
+                procurarPedido(*listaPedido,op);
 
             break;
             case 5:
-                if (listaPedidoVazia(*listaPedido)){
+                if ((*listaPedido) == NULL){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
-                // printf("Digite o ID do pedido que deseja excluir:");
-                // scanf("%d",&op);
-                // excluirPedido(listaPedido,op);
+                printf("Digite o ID do pedido que deseja excluir:");
+                scanf("%d",&op);
+                excluirPedido(listaPedido,op);
 
             break;
             case 0:

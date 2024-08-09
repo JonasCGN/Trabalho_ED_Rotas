@@ -49,6 +49,20 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
     
     pedido->status = 0;
 
+    // Verifica o id de todos os pedidos e atribui automaticamente o próximo valor como id
+    ListaPedido *auxId = *listaPedido;
+    int novoId = 1;
+
+    while (auxId != NULL) {
+        if (auxId->pedido->id_pedido >= novoId) {
+            novoId = auxId->pedido->id_pedido + 1;
+        }
+        auxId = auxId->prox;
+    }
+
+    pedido->id_pedido = novoId;
+   
+
     adicionaPedido(listaPedido, pedido);
 
     return pedido;
