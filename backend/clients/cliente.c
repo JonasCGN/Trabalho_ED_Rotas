@@ -24,13 +24,13 @@ Cliente *cadastro(){
     printf("\n");
 
     printf("CPF: ");
-    // verifica_n_int(novocliente->cpf, 11,11);
+   
     verifica_n_int(novocliente->cpf, 1,11);
     
     printf("\n");
 
     printf("Telefone: ");
-    // verifica_n_int(novocliente->telefone,11,11);
+
     verifica_n_int(novocliente->telefone,1,11);
 
     printf("\n");
@@ -49,8 +49,6 @@ Cliente *cadastro(){
     printf("Endereco: ");
     fgets(novocliente->endereco, 100, stdin);
     novocliente->endereco[strcspn(novocliente->endereco, "\n")] = '\0';// remove o /n 
-    
-    printf("\n");
 
     return novocliente;
 }
@@ -145,10 +143,16 @@ void editarcliente(ListaCliente *cliente, int id){
 }
 
 void excluircliente(ListaCliente **cliente, int id ){
-   // printf("Excluir cliente com ID %d\n", id);
+ 
     ListaCliente *atual = *cliente;
     ListaCliente *anterior = NULL;
 
+    if (atual->prox == NULL){
+        printf("Cliente com Id %d apagado.\n", atual->cliente->id_cliente);
+        free(atual);
+        getchar();
+        return;
+    }
     while (atual != NULL){
         if (atual->cliente->id_cliente == id){
             if (anterior == NULL){
@@ -165,5 +169,6 @@ void excluircliente(ListaCliente **cliente, int id ){
         anterior = atual;
         atual = atual->prox;
     }
-    printf("Cliente com Id %d nao encontrado.\n", id);
+    printf("Cliente com Id %d não encontrado.\n", atual->cliente->id_cliente);
+
 }

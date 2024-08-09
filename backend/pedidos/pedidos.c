@@ -71,8 +71,8 @@ void pedidoId(ListaPedido *listapedido,int id){
     
     if(listapedido->pedido->id_pedido == id){
         exibirPedido(listapedido->pedido);
+        getchar();
         return;
     }
-
     pedidoId(listapedido->prox,id);
 }
