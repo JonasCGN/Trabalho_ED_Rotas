@@ -31,6 +31,16 @@ int numeroReal(const char str[]) {
     return 1;
 }
 
+int verificaLetra(const char str[]) {
+    int i=0;
+
+    while (str[i]) {
+        if (isalpha(str[i]) == 0 && str[i] != ' ') return 0;
+        i++;
+    }
+    return 1;
+}
+
 void verifica_n_int(char *v, int min, int max) {
     char palavra[11];
 
@@ -82,9 +92,18 @@ float verifica_n_float(float max) {
     return num;
 }
 
-void verifica_letra(char *v, int tam) {
-    
-    scanf("%s", v);
+void verifica_letra(char *v){
+    char vTemp[50];
+
+    do{
+        scanf("%s",vTemp);
+        if(verificaLetra(vTemp) == 0){
+            printf("Digite so letras:");
+        }
+    }while(verificaLetra(vTemp) == 0);
+
+    strcpy(v,vTemp);
+
     setbuf(stdin,NULL);
 }
 
