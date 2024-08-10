@@ -8,6 +8,7 @@ void mostrarClientes(ListaCliente *listacliente);
 void exibirClientes( ListaCliente *cliente);
 void exibirInfoCliente(Cliente *cliente);
 
+void exibirPedidosPorIdCliente(ListaPedido *listaPedido, int idCliente);
 
 void exibirInfoRota(Rota *rota);
 void exibirRotas(ListaRota *listaRota);

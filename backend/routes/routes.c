@@ -48,7 +48,7 @@ void removefilaRota(FilaListaRota **listaRota){
 	}
 }
 
-void cadastroRota(FilaListaRota **listaRota, FilaListaPedido *listaPedido){
+void cadastroRota(FilaListaRota **listaRota, ListaPedido *listaPedido){
 	
 	if(listaPedidoVazia(listaPedido)){
 		printf("Nao ha pedidos para criar rota\n");
@@ -59,7 +59,7 @@ void cadastroRota(FilaListaRota **listaRota, FilaListaPedido *listaPedido){
 		Rota *rota = (Rota*)malloc(sizeof(Rota));	
 		
 		rota->score = 0;
-		rota->entrega = criaListaEntregraRota(listaPedido->ini);
+		rota->entrega = criaListaEntregraRota(listaPedido);
 		
 		if(rota->entrega == NULL){
 			printf("Nao foi possivel criar a rota, verifique se a pedidos cadastrados\n");
@@ -141,7 +141,7 @@ void entregaRota(FilaListaEntrega **listaEntrega,ListaPedido *listaPedido){
 	}
 	
 	verificarPedidosCliente(listaEntrega,listaPedido, listaPedido->pedido->id_cliente);
-	
+
 	entregaRota(listaEntrega,listaPedido->prox);
 }
 
@@ -150,6 +150,8 @@ void verificarPedidosCliente(FilaListaEntrega **listaEntrega, ListaPedido *lista
 		return;
 	}
 	
+	verificarPedidosCliente(listaEntrega,listaPedido->prox,id);
+
 	if(listaPedido->pedido->id_cliente == id && listaPedido->pedido->status == 0){
 
 		pedidoFilaEntrega(listaPedido->pedido,listaEntrega);
@@ -157,5 +159,4 @@ void verificarPedidosCliente(FilaListaEntrega **listaEntrega, ListaPedido *lista
 		listaPedido->pedido->status = 1;
 	}
 	
-	verificarPedidosCliente(listaEntrega,listaPedido->prox,id);
 }

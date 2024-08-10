@@ -2,6 +2,7 @@
 
 #include "../estrutura/estrutura.h"
 
-void adicionaPedido(FilaListaPedido **listaPedido, Pedido *pedido);
-Pedido* cadastrarPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente);
+void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido);
+Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente);
 void pedidoId(ListaPedido *listapedido,int id);
+void excluirPedido(ListaPedido **pedido, int id );

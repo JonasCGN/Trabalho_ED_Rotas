@@ -16,11 +16,4 @@ void adicionaDevolucao(Pedido *pedido,FilaListaDevolucao **devolucao);
 void segundaEntregaDevolucao(PilhaSegundaEntrega **entregasNE,FilaListaDevolucao **devolucao);
 void removeDevolucao(FilaListaDevolucao** f);
 
-/*
-Se for finalizada na primeira + 5
-Se for finalizada na segunda + 3
-Se for 
-*/
-void pontuacao(Rota *rota);
-
 void processoDevolucao(FilaListaDevolucao **devolucao);

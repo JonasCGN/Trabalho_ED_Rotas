@@ -7,35 +7,22 @@
 #include "../blindagem/blindagem.h"
 #include "pedidos.h"
 
-void adicionaPedido(FilaListaPedido **listaPedido, Pedido *pedido){
+void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido){
     ListaPedido *novo;
 	novo = (ListaPedido*)malloc(sizeof(ListaPedido));
+
 	if(!novo){
 		printf("Nao foi possivel alocar para pedido\n");
 		return;
 	}
 
 	novo->pedido = pedido;
-	novo->prox = NULL;
+	novo->prox = (*listaPedido);
 
-	if(listaPedidoVazia(*listaPedido)){
-
-		FilaListaPedido *aux = (FilaListaPedido*)malloc(sizeof(FilaListaPedido));
-
-		aux->fim = novo;
-		aux->ini = novo;
-
-		*listaPedido = aux;
-
-		return;
-	}
-
-	(*listaPedido)->fim->prox = novo;
-	(*listaPedido)->fim = novo;
-
+    (*listaPedido) = novo;
 }
 
-Pedido* cadastrarPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
+Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
     Pedido *pedido = (Pedido*)malloc(sizeof(Pedido));
 
     printf("Digite o id do cliente: ");
@@ -49,10 +36,10 @@ Pedido* cadastrarPedido(FilaListaPedido **listaPedido, ListaCliente *listaClient
     if(listaPedidoVazia(*listaPedido))
         pedido->id_pedido = 1;
     else
-        pedido->id_pedido = (*listaPedido)->fim->pedido->id_pedido + 1;
+        pedido->id_pedido = (*listaPedido)->pedido->id_pedido + 1;
 
     printf("Digite o item: ");
-    verifica_letra(pedido->item, 20);
+    verifica_letra(pedido->item);
 
     printf("Digite a quantidade: ");
 
@@ -77,4 +64,27 @@ void pedidoId(ListaPedido *listapedido,int id){
     }
 
     pedidoId(listapedido->prox,id);
+}
+
+void excluirPedido(ListaPedido **pedido, int id ){
+    ListaPedido *atual = *pedido;
+    ListaPedido *anterior = NULL;
+
+    while (atual != NULL){
+        if (atual->pedido->id_pedido == id){
+            if (anterior == NULL){
+               *pedido = atual->prox; 
+                free(atual);
+                return;
+            }else{
+                anterior->prox = atual->prox;
+                
+            }
+            free(atual);
+            return;
+        }
+        anterior = atual;
+        atual = atual->prox;
+    }
+    printf("Pedido com Id %d nao encontrado.\n", id);
 }
