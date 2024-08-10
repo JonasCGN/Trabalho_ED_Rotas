@@ -41,22 +41,30 @@ int verificaLetra(const char str[]) {
     return 1;
 }
 
-void verifica_n_int(char *v, int min, int max) {
-    char palavra[11];
+void verifica_n_int(char *v,int min) {
+    char palavra[50];
 
     do{
-        scanf("%s",palavra);
-        if(!numeroInteiro(palavra)){
-            printf("Digite um numero inteiro:");
-        }
-    }while(!numeroInteiro(palavra));
+
+        do{
+            scanf("%s",palavra);
+            if(!numeroInteiro(palavra)){
+                printf("Digite um numero inteiro:");
+            }
+        }while(!numeroInteiro(palavra));
+
+        if(strlen(palavra) < min)
+            printf("Tamanho minimo eh %d, digite novamente:", min);
+
+    }while(strlen(palavra) < min);
+
     setbuf(stdin,NULL);
 
     strcpy(v,palavra);
 
 }
 
-int numero(int min, int max) {
+int numero() {
     char v[10];
     int num;
     char *ver;
@@ -74,7 +82,7 @@ int numero(int min, int max) {
     return num;
 }
 
-float verifica_n_float(float max) {
+float verifica_n_float() {
     char v[10];
     float num;
     char *ver;

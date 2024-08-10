@@ -20,11 +20,11 @@ Cliente *cadastro(){
 
     printf("CPF: ");
     // verifica_n_int(novocliente->cpf, 11,11);
-    verifica_n_int(novocliente->cpf, 1,11);
+    verifica_n_int(novocliente->cpf,11);
 
     printf("Telefone: ");
     // verifica_n_int(novocliente->telefone,11,11);
-    verifica_n_int(novocliente->telefone,1,11);
+    verifica_n_int(novocliente->telefone,11);
 
     printf("Email: ");
     do{
@@ -105,10 +105,10 @@ void editarcliente(ListaCliente *cliente, int id){
             verifica_letra(atual->cliente->nome);          
 
             printf("\nNovo CPF: ");
-            verifica_n_int(atual->cliente->cpf, 11,11);
+            verifica_n_int(atual->cliente->cpf, 11);
 
             printf("\nNovo Telefone: ");
-            verifica_n_int(atual->cliente->cpf, 11,11);
+            verifica_n_int(atual->cliente->cpf, 11);
 
             fflush(stdin);
 
