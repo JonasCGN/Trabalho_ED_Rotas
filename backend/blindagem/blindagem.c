@@ -32,7 +32,12 @@ int numeroReal(const char str[]) {
 }
 
 int verificaLetra(const char str[]) {
-    int i=0;
+    int i = 0;
+    int len = strlen(str);
+
+    if (len == 0 || str[len - 1] == ' ') {
+        return 0;
+    }
 
     while (str[i]) {
         if (isalpha(str[i]) == 0 && str[i] != ' ') return 0;
@@ -40,6 +45,7 @@ int verificaLetra(const char str[]) {
     }
     return 1;
 }
+
 
 void verifica_n_int(char *v,int min) {
     char palavra[50];

@@ -108,7 +108,7 @@ void editarcliente(ListaCliente *cliente, int id){
             verifica_n_int(atual->cliente->cpf, 11);
 
             printf("\nNovo Telefone: ");
-            verifica_n_int(atual->cliente->cpf, 11);
+            verifica_n_int(atual->cliente->telefone, 11);
 
             fflush(stdin);
 
@@ -129,11 +129,11 @@ void editarcliente(ListaCliente *cliente, int id){
             encontrado = 1; 
         }
         atual = atual->prox;
+        
+    }
         if (!encontrado){
             printf(" Cliente com Id %d nao encontrado. \n ", id);
         }
-        
-    }
    
 
 }
