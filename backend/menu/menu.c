@@ -93,6 +93,7 @@ int exibeOpcaoPedido(){
     printf("2. Exibir todos os Pedidos \n");
     printf("3. Procurar Pedido por ID\n");
     printf("4. Procurar Pedido por ID Cliente\n");
+    printf("5. Excluir Pedido por Id do Pedido\n");
     printf("0. Voltar\n");
     printf("Escolha uma opcao: ");
     scanf("%d", &op);
@@ -329,6 +330,17 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                 printf("Digite o ID do cliente que deseja procurar:");
                 scanf("%d",&id);
                 exibirPedidosPorIdCliente((*listaPedido),id);
+                getchar();
+            break;
+            case 5:
+                if (listaPedidoVazia(*listaPedido)){
+                    printf("Nenhum pedido cadastrado\n");
+                    break;
+                }
+
+                printf("Digite o ID do pedido que deseja excluir:");
+                scanf("%d",&id);
+                excluirPedido(listaPedido,id);
                 getchar();
             break;
             case 0:

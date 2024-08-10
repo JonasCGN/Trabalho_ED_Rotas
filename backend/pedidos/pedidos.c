@@ -39,7 +39,7 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
         pedido->id_pedido = (*listaPedido)->pedido->id_pedido + 1;
 
     printf("Digite o item: ");
-    verifica_letra(pedido->item, 20);
+    verifica_letra(pedido->item);
 
     printf("Digite a quantidade: ");
 
@@ -64,4 +64,27 @@ void pedidoId(ListaPedido *listapedido,int id){
     }
 
     pedidoId(listapedido->prox,id);
+}
+
+void excluirPedido(ListaPedido **pedido, int id ){
+    ListaPedido *atual = *pedido;
+    ListaPedido *anterior = NULL;
+
+    while (atual != NULL){
+        if (atual->pedido->id_pedido == id){
+            if (anterior == NULL){
+               *pedido = atual->prox; 
+                free(atual);
+                return;
+            }else{
+                anterior->prox = atual->prox;
+                
+            }
+            free(atual);
+            return;
+        }
+        anterior = atual;
+        atual = atual->prox;
+    }
+    printf("Pedido com Id %d nao encontrado.\n", id);
 }

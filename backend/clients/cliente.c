@@ -16,7 +16,7 @@ Cliente *cadastro(){
     }
     
     printf("Nome: ");
-    verifica_letra(novocliente->nome, 50);
+    verifica_letra(novocliente->nome);
 
     printf("CPF: ");
     // verifica_n_int(novocliente->cpf, 11,11);
@@ -102,7 +102,7 @@ void editarcliente(ListaCliente *cliente, int id){
             printf (" Editar cliente com ID %d: \n", id);
     
             printf("Novo Nome: ");
-            verifica_letra(atual->cliente->nome, 50);          
+            verifica_letra(atual->cliente->nome);          
 
             printf("\nNovo CPF: ");
             verifica_n_int(atual->cliente->cpf, 11,11);
@@ -139,7 +139,6 @@ void editarcliente(ListaCliente *cliente, int id){
 }
 
 void excluircliente(ListaCliente **cliente, int id ){
-   // printf("Excluir cliente com ID %d\n", id);
     ListaCliente *atual = *cliente;
     ListaCliente *anterior = NULL;
 
