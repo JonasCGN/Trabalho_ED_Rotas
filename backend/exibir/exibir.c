@@ -62,7 +62,12 @@ void exibirInfoRota(Rota *rota){
 
 	printf("ID Rota: %d\n", rota->id_rota);
 	printf("Score: %d\n", rota->score);
-	exibirPedido(rota->entrega->ini->pedido);
+	
+	if(rota->historico == NULL){
+		printf("Nenhum historico ainda para esta rota\n");
+		return;
+	}
+	exibirHistorico(rota->historico);
 	printf("\n");
 }
 

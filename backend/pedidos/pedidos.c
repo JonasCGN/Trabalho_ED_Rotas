@@ -19,6 +19,7 @@ void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido){
 	novo->pedido = pedido;
 	novo->prox = (*listaPedido);
 
+    (*listaPedido) = novo;
 }
 
 Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
@@ -35,7 +36,7 @@ Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
     if(listaPedidoVazia(*listaPedido))
         pedido->id_pedido = 1;
     else
-        pedido->id_pedido = (*listaPedido)->pedido + 1;
+        pedido->id_pedido = (*listaPedido)->pedido->id_pedido + 1;
 
     printf("Digite o item: ");
     verifica_letra(pedido->item, 20);
@@ -63,21 +64,4 @@ void pedidoId(ListaPedido *listapedido,int id){
     }
 
     pedidoId(listapedido->prox,id);
-}
-
-ListaPedido* pedidoIdExclui(ListaPedido *listapedido,int id){
-    if(listapedido == NULL)
-        return NULL;
-
-    if(listapedido->pedido->id_pedido == id){
-        Pedido *remove = listapedido->pedido;
-        ListaPedido *aux = listapedido;
-
-        listapedido->prox = aux->prox;
-        free(remove);
-
-        return listapedido;
-    }
-
-    return pedidoIdExclui(listapedido->prox,id);
 }

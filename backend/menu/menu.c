@@ -93,7 +93,6 @@ int exibeOpcaoPedido(){
     printf("2. Exibir todos os Pedidos \n");
     printf("3. Procurar Pedido por ID\n");
     printf("4. Procurar Pedido por ID Cliente\n");
-    printf("5. Excluir Pedido por ID\n");
     printf("0. Voltar\n");
     printf("Escolha uma opcao: ");
     scanf("%d", &op);
@@ -107,8 +106,8 @@ int exibeOpcaoRota(){
     printf("\n----- MENU -----\n");
     printf("1. Cadastrar Rota\n");
     printf("2. Exibir Rota Atual \n");
-    printf("3. Exibir todas as Rotas \n");
-    printf("4. Procurar Rota por ID\n");
+    printf("3. Exibir todas as Rotas e seus historicos\n");
+    printf("4. Procurar Rota por ID e ver seu historico\n");
     printf("5. Finalizar Rota\n");
     printf("0. Voltar\n");
     printf("Escolha uma opcao: ");
@@ -220,6 +219,7 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
                     break;
                 }
                 exibirInfoRota((*rota)->fim->rota);
+
             break;
 
             case 3:
@@ -228,6 +228,8 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
                     break;
                 }
                 exibirRotas((*rota)->ini);
+
+
             break;
         
             case 4:
@@ -241,7 +243,6 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
 
                 procurarRota((*rota)->fim,id);
             break;
-
             case 5:
                 if((*rota) == NULL){
                     printf("Nenhuma rota foi iniciada\n");
@@ -328,18 +329,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                 printf("Digite o ID do cliente que deseja procurar:");
                 scanf("%d",&id);
                 exibirPedidosPorIdCliente((*listaPedido),id);
-
-            break;
-            case 5:
-                if ((*listaPedido) == NULL){
-                    printf("Nenhum pedido cadastrado\n");
-                    break;
-                }
-
-                printf("Digite o ID do pedido que deseja excluir:");
-                scanf("%d",&id);
-                (*listaPedido) = pedidoIdExclui((*listaPedido),id);
-                
+                getchar();
             break;
             case 0:
                 printf("Saindo...\n");

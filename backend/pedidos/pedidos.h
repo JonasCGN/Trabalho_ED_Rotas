@@ -5,4 +5,3 @@
 void adicionaPedido(ListaPedido **listaPedido, Pedido *pedido);
 Pedido* cadastrarPedido(ListaPedido **listaPedido, ListaCliente *listaCliente);
 void pedidoId(ListaPedido *listapedido,int id);
-ListaPedido* pedidoIdExclui(ListaPedido *listapedido,int id);
