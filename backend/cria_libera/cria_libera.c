@@ -16,7 +16,7 @@ ListaCliente *criaListaCliente(){
     return NULL;
 }
 
-FilaListaPedido *criaListaPedido(){
+ListaPedido *criaListaPedido(){
 	return NULL;
 }
 
@@ -62,7 +62,7 @@ int rotaVazia(FilaListaRota *listaRota){
 	return 0;
 }
 
-int listaPedidoVazia(FilaListaPedido *listaPedido){
+int listaPedidoVazia(ListaPedido *listaPedido){
     if(listaPedido == NULL)
         return 1;
 
@@ -75,15 +75,6 @@ int listaClienteVazia(ListaCliente *listacliente){
 	}
 	
 	return 0;
-}
-
-
-
-void liberaFilaListaPedido(FilaListaPedido* fila){
-	if(listaPedidoVazia(fila))
-		return;
-
-	liberaListaPedido(fila->ini);
 }
 
 void liberaListaPedido(ListaPedido *l){
@@ -140,9 +131,17 @@ void liberarListaCliente(ListaCliente *l){
 		return;
 
 	liberarListaCliente(l->prox);
-
 	free(l);
     
+}
+
+void liberarListaHistorico(ListaHistorico *l){
+	if(l == NULL)
+		return;
+
+	liberarListaHistorico(l->prox);
+	free(l->pedido);
+	free(l);
 }
 
 void liberaFilaListaRota(FilaListaRota *listaRota){
@@ -161,5 +160,5 @@ void liberarListaRota(ListaRota *listaRota){
 	liberaFilaListaDevolucao(listaRota->rota->devolucao);
 	liberaListaSegundaEntrega(listaRota->rota->segundaEntrega);
 	liberaFilaListaEntrega(listaRota->rota->entrega);
-	free(listaRota->rota);
+	liberarListaHistorico(listaRota->rota->historico);
 }

@@ -102,8 +102,8 @@ void mostrarPedidos(ListaPedido *lista){
 	if(lista == NULL)
 		return;
 		
-	exibirPedido(lista->pedido);
 	mostrarPedidos(lista->prox);
+	exibirPedido(lista->pedido);
 }
 
 void exibirHistorico(ListaHistorico *listahistorico){
@@ -122,26 +122,12 @@ void exibirPedidosDeRotas(ListaRota *listaRota){
 	exibirPedidosDeRotas(listaRota->prox);
 }
 
-void exibirPedidosPorId(ListaPedido *listaPedido, int id){
-    ListaPedido *aux = listaPedido;
-
-    while(aux != NULL){
-        if(aux->pedido->id_pedido == id){
-            exibirPedido(aux->pedido);
-            return;
-        }
-        aux = aux->prox;
-    }
-    printf("Pedido não encontrado\n");
-}
-
 void exibirPedidosPorIdCliente(ListaPedido *listaPedido, int idCliente){
-    ListaPedido *aux = listaPedido;
+	if(listaPedido == NULL)
+		return;
 
-    while(aux != NULL){
-        if(aux->pedido->id_cliente == idCliente){
-           exibirPedido(aux->pedido);
-        }
-        aux = aux->prox;
-    }
+	if(listaPedido->pedido->id_cliente == idCliente)
+		exibirPedido(listaPedido->pedido);
+
+	exibirPedidosPorIdCliente(listaPedido->prox,idCliente);
 }

@@ -40,6 +40,7 @@ void verifica_n_int(char *v, int min, int max) {
             printf("Digite um numero inteiro:");
         }
     }while(!numeroInteiro(palavra));
+    setbuf(stdin,NULL);
 
     strcpy(v,palavra);
 
@@ -58,6 +59,7 @@ int numero(int min, int max) {
     }while(!numeroInteiro(v));
 
     num = strtol(v,&ver,10);
+    setbuf(stdin,NULL);
 
     return num;
 }
@@ -75,6 +77,7 @@ float verifica_n_float(float max) {
     }while(!numeroReal(v));
 
     num = strtof(v,&ver);
+    setbuf(stdin,NULL);
 
     return num;
 }
@@ -82,7 +85,7 @@ float verifica_n_float(float max) {
 void verifica_letra(char *v, int tam) {
     
     scanf("%s", v);
-    
+    setbuf(stdin,NULL);
 }
 
 int verifica_email(char *v){

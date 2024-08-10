@@ -15,7 +15,7 @@ void telaInicial(){
     int opc;
 
     FilaListaRota *listarota = criaRota();
-    FilaListaPedido *listapedido = criaListaPedido();
+    ListaPedido *listapedido = criaListaPedido();
     ListaCliente *listaCliente = criaListaCliente();
     
     do{
@@ -66,7 +66,7 @@ void telaInicial(){
     }while(opc != 0);
 
     liberarListaCliente(listaCliente);
-    liberaFilaListaPedido(listapedido);
+    liberaListaPedido(listapedido);
     liberaFilaListaRota(listarota);
 }
 
@@ -201,7 +201,7 @@ void menuCliente(ListaCliente **listacliente){
 
 }
 
-void menuRota(FilaListaRota **rota,FilaListaPedido *listaPedido){
+void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
     int opc,id;
 
     do{
@@ -275,8 +275,8 @@ void menuRota(FilaListaRota **rota,FilaListaPedido *listaPedido){
     }while(opc != 0);
 }
 
-void menuPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
-    int op;
+void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
+    int op,id;
     Pedido *pedido = NULL;
 
     do{
@@ -305,7 +305,7 @@ void menuPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
                     break;
                 }
 
-                mostrarPedidos((*listaPedido)->ini);
+                mostrarPedidos(*listaPedido);
             break;
             case 3:
                 if (listaPedidoVazia(*listaPedido)){
@@ -317,7 +317,7 @@ void menuPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
                 printf("Digite o id do pedido que deseja procura:");
                 scanf("%d", &id);
 
-                pedidoId((*listaPedido)->ini,id);
+                pedidoId((*listaPedido),id);
             break;
             case 4:
                 if (listaPedidoVazia(*listaPedido)){
@@ -325,9 +325,9 @@ void menuPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
                     break;
                 }
 
-                // printf("Digite o ID do cliente que deseja procurar:");
-                // scanf("%d",&op);
-                // procurarPedido(*listaPedido,op);
+                printf("Digite o ID do cliente que deseja procurar:");
+                scanf("%d",&id);
+                exibirPedidosPorIdCliente((*listaPedido),id);
 
             break;
             case 5:
@@ -336,10 +336,10 @@ void menuPedido(FilaListaPedido **listaPedido, ListaCliente *listaCliente){
                     break;
                 }
 
-                // printf("Digite o ID do pedido que deseja excluir:");
-                // scanf("%d",&op);
-                // excluirPedido(listaPedido,op);
-
+                printf("Digite o ID do pedido que deseja excluir:");
+                scanf("%d",&id);
+                (*listaPedido) = pedidoIdExclui((*listaPedido),id);
+                
             break;
             case 0:
                 printf("Saindo...\n");

@@ -23,11 +23,6 @@ typedef struct listaPedido{
     struct listaPedido *prox;
 }ListaPedido;
 
-typedef struct filaListaPedido{
-    ListaPedido *ini;
-    ListaPedido *fim;
-}FilaListaPedido;
-
 typedef struct listaentrega{
     Pedido* pedido;
     struct listaentrega *prox;

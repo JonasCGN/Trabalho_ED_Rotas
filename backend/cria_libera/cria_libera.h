@@ -6,7 +6,7 @@
 ListaHistorico *criaListaHistorico();
 FilaListaRota *criaRota();
 ListaCliente *criaListaCliente();
-FilaListaPedido *criaListaPedido();
+ListaPedido *criaListaPedido();
 FilaListaEntrega* criaListaEntrega();
 PilhaSegundaEntrega* criaListaSegundaEntrega();
 FilaListaDevolucao* criaListaDevolucao();
@@ -16,10 +16,9 @@ int segundaEntregaVazia(PilhaSegundaEntrega *fila);
 int devolucaoVazio(FilaListaDevolucao *fila);
 int rotaVazia(FilaListaRota *listaRota);
 int listaClienteVazia(ListaCliente *listacliente);
-int listaPedidoVazia(FilaListaPedido *listaPedido);
+int listaPedidoVazia(ListaPedido *listaPedido);
 
 //Libera
-void liberaFilaListaPedido(FilaListaPedido* fila);
 void liberaListaPedido(ListaPedido *l);
 
 void liberaFilaListaEntrega(FilaListaEntrega* fila);
@@ -30,6 +29,8 @@ void liberaListaSegundaEntrega(PilhaSegundaEntrega* l);
 void liberaFilaListaDevolucao(FilaListaDevolucao* fila);
 void liberaListaDevolucao(ListaDevolucao* l);
 void liberarListaCliente(ListaCliente *Cliente);
+
+void liberarListaHistorico(ListaHistorico *l);
 
 void liberaFilaListaRota(FilaListaRota *listaRota);
 void liberarListaRota(ListaRota *listaRota);
