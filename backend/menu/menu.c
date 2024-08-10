@@ -25,7 +25,7 @@ void telaInicial(){
         printf("3 - Menu Rota\n");
         printf("4 - Menu Entrega\n");
         printf("0 - Sair\n");
-        scanf("%d", &opc);
+        opc = numero();
         
         getchar();
         system("cls||clear");
@@ -80,7 +80,8 @@ int exibeOpcaoCliente(){
     printf("5. Excluir cliente por ID\n");
     printf("0. Voltar\n");
     printf("Escolha uma opcao: ");
-    scanf("%d", &op);
+    op = numero();
+
 
     getchar();
     return op;
@@ -96,7 +97,8 @@ int exibeOpcaoPedido(){
     printf("5. Excluir Pedido por Id do Pedido\n");
     printf("0. Voltar\n");
     printf("Escolha uma opcao: ");
-    scanf("%d", &op);
+    op = numero();
+
 
     getchar();
     return op;
@@ -112,7 +114,7 @@ int exibeOpcaoRota(){
     printf("5. Finalizar Rota\n");
     printf("0. Voltar\n");
     printf("Escolha uma opcao: ");
-    scanf("%d", &op);
+    op = numero();
 
     getchar();
     return op;
@@ -130,7 +132,7 @@ int exibeOpcaoEntrega(){
     printf("7. Exibir Historico\n");
     printf("0 - Voltar\n");
     printf("Escolha uma opcao: ");
-    scanf("%d", &op);
+    op = numero();
 
     getchar();
     return op;
@@ -160,7 +162,7 @@ void menuCliente(ListaCliente **listacliente){
                 }
                 
                 printf("Digite o ID do cliente que deseja procurar:");
-                id = numero(1, 1100000);
+                id = numero();
 
                 procurarcliente(*listacliente,id);
 
@@ -172,7 +174,7 @@ void menuCliente(ListaCliente **listacliente){
                     break;
                 }
                 printf("Digite o ID do cliente que deseja procurar:");
-                scanf("%d",&id);
+                id = numero();
 
                 editarcliente(*listacliente,id);
             break;
@@ -183,7 +185,7 @@ void menuCliente(ListaCliente **listacliente){
                     break;
                 }
                 printf("Digite o ID do cliente que deseja excluir:");
-                scanf("%d",&id);
+                id = numero();
                 excluircliente(listacliente,id);
             break;
 
@@ -229,8 +231,6 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
                     break;
                 }
                 exibirRotas((*rota)->ini);
-
-
             break;
         
             case 4:
@@ -240,7 +240,7 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
                 }
 
                 printf("Digite o ID da rota que deseja procurar:");
-                scanf("%d",&id);
+                id = numero();
 
                 procurarRota((*rota)->fim,id);
             break;
@@ -314,11 +314,9 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                     printf("Nenhum pedido cadastrado\n");
                     break;
                 }
-                static int id;
-
+                
                 printf("Digite o id do pedido que deseja procura:");
-                scanf("%d", &id);
-
+                id = numero();
                 pedidoId((*listaPedido),id);
             break;
             case 4:
@@ -328,7 +326,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                 }
 
                 printf("Digite o ID do cliente que deseja procurar:");
-                scanf("%d",&id);
+                id = numero();
                 exibirPedidosPorIdCliente((*listaPedido),id);
                 getchar();
             break;
@@ -339,7 +337,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                 }
 
                 printf("Digite o ID do pedido que deseja excluir:");
-                scanf("%d",&id);
+                id = numero();
                 excluirPedido(listaPedido,id);
                 getchar();
             break;
@@ -365,7 +363,7 @@ int menuPergunta(Pedido *pedido){
     printf("1 - Sim\n");
     printf("2 - Nao\n");
     printf("Escolha uma opcao: ");
-    scanf("%d", &op);
+    op = numero();
 
     getchar();
     return op;
