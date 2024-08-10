@@ -27,7 +27,6 @@ void telaInicial(){
         printf("0 - Sair\n");
         opc = numero();
         
-        getchar();
         system("cls||clear");
 
         switch (opc){
@@ -61,7 +60,7 @@ void telaInicial(){
             break;
         }
 
-        system("cls||clear");
+        limparTela();
 
     }while(opc != 0);
 
@@ -82,8 +81,6 @@ int exibeOpcaoCliente(){
     printf("Escolha uma opcao: ");
     op = numero();
 
-
-    getchar();
     return op;
 }
 
@@ -99,8 +96,6 @@ int exibeOpcaoPedido(){
     printf("Escolha uma opcao: ");
     op = numero();
 
-
-    getchar();
     return op;
 }
 
@@ -116,7 +111,6 @@ int exibeOpcaoRota(){
     printf("Escolha uma opcao: ");
     op = numero();
 
-    getchar();
     return op;
 }
 
@@ -134,7 +128,6 @@ int exibeOpcaoEntrega(){
     printf("Escolha uma opcao: ");
     op = numero();
 
-    getchar();
     return op;
 }
 
@@ -197,8 +190,8 @@ void menuCliente(ListaCliente **listacliente){
             break;
         }
 
-        getchar();
-        system("cls||clear");
+        limparTela();
+
     }while(op != 0);
 
 }
@@ -346,6 +339,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
             break;
 
             default:
+                printf("Opcao Invalida\n");
             break;
         }
 
@@ -365,7 +359,6 @@ int menuPergunta(Pedido *pedido){
     printf("Escolha uma opcao: ");
     op = numero();
 
-    getchar();
     return op;
 }
 
