@@ -60,7 +60,7 @@ void telaInicial(){
             break;
         }
 
-        limparTela();
+        system("cls||clear");
 
     }while(opc != 0);
 
@@ -183,10 +183,11 @@ void menuCliente(ListaCliente **listacliente){
             break;
 
             case 0:
-                printf("Voltando...");
+                printf("Voltando...\n");
             break;
 
             default:
+                printf("Opcao Invalida\n");
             break;
         }
 
@@ -257,11 +258,11 @@ void menuRota(FilaListaRota **rota,ListaPedido *listaPedido){
                 printf("Rota finalizada com sucesso!");
             break;
             case 0:
-                printf("Voltando...");
+                printf("Voltando...\n");
             break;
 
             default:
-                printf("Opcao Invalida");
+                printf("Opcao Invalida\n");
             break;
         }
 
@@ -335,7 +336,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
                 getchar();
             break;
             case 0:
-                printf("Saindo...\n");
+                printf("Voltando...\n");
             break;
 
             default:
@@ -344,6 +345,7 @@ void menuPedido(ListaPedido **listaPedido, ListaCliente *listaCliente){
         }
 
         limparTela();
+
     }while(op != 0);
 
 }
@@ -457,16 +459,15 @@ void menuEntrega(Rota **rota){
             break;
 
             case 0:
-                printf("Voltando...");
+                printf("Voltando...\n");
             break;
 
             default:
-                printf("Opcao Invalida");
+                printf("Opcao Invalida\n");
             break;
         }
 
-        getchar();
-        system("cls||clear");
+        limparTela();
 
     }while(op != 0);
 }
