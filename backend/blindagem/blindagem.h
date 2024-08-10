@@ -8,4 +8,3 @@ void verifica_letra(char *v,int tam);
 int verifica_email(char *v);
 
 void limparTela();
-char recebeUmNumero(char v);
